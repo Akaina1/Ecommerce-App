@@ -1,0 +1,35 @@
+.App-header.MuiPaper-root {
+  &.MuiAppBar-root {
+    flex-direction: column; // Changed to column to stack logo and nav vertically
+    align-items: center; // Center items horizontally
+  }
+
+  .MuiToolbar-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logo h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  .App-nav {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+}
+
+.icons {
+  // Styles for user and cart icons
+}

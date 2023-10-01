@@ -1,0 +1,15 @@
+.left-content {
+    min-height: calc(100vh - 5rem);  // Takes up the full viewport height minus the header and footer height
+    padding: 2rem;
+    background-color: #F0F4F8; // Light background color
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5); // Optional: Adds a subtle shadow
+    margin-top: 2rem; // Optional: Adds a margin to the top of the content
+    margin-bottom: 2rem; // Optional: Adds a margin to the bottom of the content
+  }
+
+    .left-content h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
