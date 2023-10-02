@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@mui/material/Container';
 
-function RightContent({ children }) {
+function LandingRightContent({ children }) {
   return (
     <Container maxWidth={false} className="right-content">
       {children}
@@ -9,4 +9,4 @@ function RightContent({ children }) {
   );
 }
 
-export default RightContent;
+export default LandingRightContent;

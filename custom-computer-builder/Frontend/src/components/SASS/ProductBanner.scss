@@ -1,0 +1,46 @@
+.product-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: inherit;
+      filter: grayscale(100%);
+      transition: filter 0.5s ease-in-out;
+      z-index: 1;
+    }
+    
+    &:hover:before {
+      filter: grayscale(0%);
+    }
+    
+    .banner-content {
+      position: relative;
+      z-index: 2;
+    }
+  }  
+
+  .product-banner:hover {
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 10px #838383;
+  }
+  
+  .product-banner p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #000000;
+    font-weight: 400;
+  }
+
+  .product-banner h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #000000;
+    font-weight: 600;
+  }

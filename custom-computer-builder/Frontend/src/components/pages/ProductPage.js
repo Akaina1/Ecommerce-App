@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Grid } from '@mui/material';
-import CentralContent from '../layout/CentralContent';
-import LeftContent from '../layout/LeftContent';
+import LandingCentralContent from '../layout/LandingCentralContent';
+import LandingLeftContent from '../layout/LandingLeftContent';
 
 function ProductPage() {
   return (
@@ -9,18 +9,18 @@ function ProductPage() {
       <Grid container spacing={2} >
         {/* Left Sidebar */}
         <Grid item xs={2}>
-          <LeftContent>
+          <LandingLeftContent>
             <h1>Left Sidebar</h1>
-            {/* Your left sidebar content here */}
-          </LeftContent>
+       
+          </LandingLeftContent>
         </Grid>
   
         {/* Central Content */}
         <Grid item xs={10}>
-        <CentralContent>
+        <LandingCentralContent>
           <h1>Product Page</h1>
-          {/* Your main content here */}
-        </CentralContent>
+  
+        </LandingCentralContent>
         </Grid>
   
         </Grid>
