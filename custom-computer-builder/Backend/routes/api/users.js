@@ -7,10 +7,12 @@ const User = require('../../models/User');
 // @route   GET api/users/test
 // @desc    Tests users route
 // @access  Public
-router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
-
+router.get('/', (req, res) => {
+  User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(500).json({ msg: 'Server Error' }));
+});
 module.exports = router;
-
 ///////////////////////////////////////////////////////////// User Registration (POST Route) /////////////////////////////////////////////////////////////
 const bcrypt = require('bcryptjs');
 

@@ -20,7 +20,10 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Use Routes (You'll define these in your routes folder)
 app.use('/api/users', require('./routes/api/users'));
-// app.use('/api/products', require('./routes/api/products'));
+app.use('/api/products', require('./routes/api/products'));
+app.use('/api/carts', require('./routes/api/carts'));
+app.use('/api/orders', require('./routes/api/orders'));
+
 
 const port = process.env.PORT || 5000;
 
