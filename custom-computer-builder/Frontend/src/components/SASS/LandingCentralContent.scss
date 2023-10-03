@@ -1,5 +1,6 @@
 .central-content {
-  height: calc(100vh);
+  min-height: calc(110vh);
+  max-height: calc(110vh);  
   overflow-y: auto;
   display: flex;
   flex-direction: column;

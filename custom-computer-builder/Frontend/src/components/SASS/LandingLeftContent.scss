@@ -1,10 +1,7 @@
 .left-content.MuiContainer-root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;  
-  overflow: auto;  
-  min-height: calc(100vh - 5rem);  
+  overflow: hidden;  
+  min-height: calc(110vh);
+  max-height: calc(110vh);  
   border-radius: 1rem;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
   margin-top: 2rem;

@@ -1,4 +1,4 @@
-.product-card{
+.product-card.MuiGrid-root.MuiGrid-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,17 +6,18 @@
   width: 250px;
   height: 350px;
   margin: 10px;
-  padding: 10px;
   border-radius: 5px;
-  transition: all 0.2s ease-in-out;
+  padding: 7px;
+  opacity: 1;
+  transition: all 0.7s ease-in-out;
   &:hover {
     transform: scale(1.05);
-    border: 1px solid black;
+    background: radial-gradient( farthest-corner,
+      transparent 0%,
+      rgb(255, 255, 255) 50%,
+      transparent 100%
+    );
   }
-  &.MuiPaper-root.MuiCard-root {
-    background-color: antiquewhite;
-  }
-  
   .product-image {
     width: 100%;
     height: 200px;

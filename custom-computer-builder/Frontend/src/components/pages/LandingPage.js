@@ -12,22 +12,18 @@ function LandingPage() {
         <Grid item xs={2}>
           <LandingLeftContent>
             <h1>On Sale!</h1>
-
           </LandingLeftContent>
         </Grid>
 
         {/* Central Content */}
         <Grid item xs={8}>
           <LandingCentralContent>
-
           </LandingCentralContent>
         </Grid>
 
         {/* Right Sidebar */}
         <Grid item xs={2}>
           <LandingRightContent>
-            <h1>Right Sidebar</h1>
-
           </LandingRightContent>
         </Grid>
       </Grid>

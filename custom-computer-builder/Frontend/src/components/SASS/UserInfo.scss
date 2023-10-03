@@ -1,0 +1,19 @@
+// UserInfo.scss
+
+.user-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: #ffffff solid 4px;
+  border-radius: 10px;
+  padding: 2rem;
+  margin-left: -12px;
+  margin-right: -12px;
+  background-color: #8ff7cb;
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

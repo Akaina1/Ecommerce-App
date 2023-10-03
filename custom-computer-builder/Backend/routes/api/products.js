@@ -15,9 +15,21 @@ router.get('/', async (req, res) => {
 });
 
 // @route   POST api/products
-// @desc    Create a new product
+// @desc    Create new products (supports bulk insert)
 // @access  Public
 router.post('/', async (req, res) => {
+  // Check if the request body is an array
+  if (Array.isArray(req.body)) {
+    try {
+      // Bulk insert using Model.insertMany()
+      const products = await Product.insertMany(req.body);
+      res.json(products);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  } else {
+    // Existing logic for inserting a single product
     const newProduct = new Product({
       name: req.body.name,
       category: req.body.category,
@@ -32,9 +44,26 @@ router.post('/', async (req, res) => {
       const product = await newProduct.save();
       res.json(product);
     } catch (err) {
+      console.error(err.message);  // Log the error message
       res.status(500).json({ msg: 'Server Error' });
     }
+  }
 });
+
+// @route   GET api/products/onsale
+// @desc    Get all products that are on sale
+// @access  Public
+router.get('/onsale', async (req, res) => {
+  try {
+    // Fetch products where 'onSale' is true
+    const products = await Product.find({ onSale: true });
+    res.json(products);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 // @route   PUT api/products/:id
 // @desc    Update a product
