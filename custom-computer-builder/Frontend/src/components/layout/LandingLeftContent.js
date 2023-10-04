@@ -58,8 +58,8 @@ function LandingLeftContent({ children }) {
     <Container maxWidth={false} className="left-content">
       {children}
       <div className="button-container">
-        <Button onClick={() => cycleProducts('prev')}>Previous</Button>
-        <Button onClick={() => cycleProducts('next')}>Next</Button>
+        <Button className='pagination-btn' onClick={() => cycleProducts('prev')}>Previous</Button>
+        <Button className='pagination-btn' onClick={() => cycleProducts('next')}>Next</Button>
       </div>
       {/* Existing Loading and Error states */}
       <Grid 
@@ -73,7 +73,7 @@ function LandingLeftContent({ children }) {
           <Grid 
           item xs={12} sm={6} md={4} 
           key={product._id}
-          className="product-card visible" // test
+          className="product-card visible" // No idea what this is for but it works
         > 
           <ProductCard product={product} />
         </Grid>

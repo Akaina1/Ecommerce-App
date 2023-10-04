@@ -4,15 +4,37 @@
   max-height: calc(110vh);  
   border-radius: 1rem;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-  margin-top: 2rem;
-  margin-bottom: 2rem;
   background-color: #fa9999
 }
 
     .left-content h1 {
-        padding-top: 5px;
         font-size: 2rem;
         text-align: center;
         font-weight: bold;
         color: red;
+        margin-bottom: 1rem;
+        margin-top: auto;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .pagination-btn.MuiButtonBase-root {
+      height: 3rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 5px;
+      border: none;
+      background-color: #A8D5E2;
+      color: black;
+      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+      transition: all 0.7s ease-in-out;
+      filter: grayscale(100%);
+      &:hover {
+        transform: scale(1.05);
+        background-color: #83e0fa;
+        filter: grayscale(0%);
+      }
     }
