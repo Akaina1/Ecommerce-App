@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
+import { Provider } from 'react-redux';
+import store from '../store/store';
 import theme from '../SASS/MUI Theme/muiTheme';
 import '../SASS/main.scss'; 
 
@@ -17,6 +19,7 @@ import { CssBaseline } from '@mui/material';
 
 function App() {
   return (
+    <Provider store={store}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
@@ -40,6 +43,7 @@ function App() {
         </div>
       </Router>
     </ThemeProvider>
+    </Provider>
   );
 }
 

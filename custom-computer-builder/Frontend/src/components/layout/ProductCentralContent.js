@@ -1,12 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import { Container, Grid, Button } from '@mui/material';
 import ProductCard from '../common/ProductCard';
-import {productstest} from '../../testdata.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts } from '../actions/actions'; 
 import '../SASS/main.scss'
 
-function ProductCentralContent({ products }) {
+function ProductCentralContent({ search, filter, sort }) {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 15;
+
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector(state => state);
+
+  useEffect(() => {
+    console.log('Fetching products with:', { search, filter, sort });  // log the values
+    dispatch(fetchProducts(currentPage, productsPerPage, search, filter, sort));
+  }, [dispatch, currentPage, productsPerPage, search, filter, sort]);
 
   function handlePagination(direction) {
     const newPage = direction === 'next' ? currentPage + 1 : currentPage - 1;
@@ -15,9 +24,8 @@ function ProductCentralContent({ products }) {
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = productstest.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  
   return (
     <Container maxWidth={false} className="central-content-products">
       <div className="pagination-buttons-products">
@@ -26,7 +34,7 @@ function ProductCentralContent({ products }) {
               disabled={currentPage === 1}>Previous</Button>
       <Button className='pagination-btn' 
               onClick={() => handlePagination('next')}
-              disabled={currentPage === Math.ceil(productstest.length / productsPerPage)}>Next</Button>
+              disabled={currentPage === Math.ceil(products.length / productsPerPage)}>Next</Button>
     </div>
       <Grid
         container
@@ -37,7 +45,7 @@ function ProductCentralContent({ products }) {
         {currentProducts.map((product) => (
           <Grid
             item xs={12} sm={6} md={2}
-            key={product.id}
+            key={product._id}
             className="product-card visible"
           >
             <ProductCard product={product} />

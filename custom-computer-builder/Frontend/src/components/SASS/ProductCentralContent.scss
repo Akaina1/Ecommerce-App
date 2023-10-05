@@ -1,10 +1,10 @@
-.central-content-products {
-    max-height: calc(111vh);  
+.central-content-products.MuiContainer-root {
+    height: calc(110vh - 6rem);  // 100% of the viewport height minus the height of the header
     overflow: hidden;
-    min-height: calc(100vh - 5rem);  
     border-radius: 1rem;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     margin-bottom: 2rem;
+    margin-top: 2rem;
     background-color: #fa9999;
     }
   

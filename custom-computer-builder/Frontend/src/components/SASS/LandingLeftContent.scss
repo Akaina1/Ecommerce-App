@@ -1,10 +1,11 @@
 .left-content.MuiContainer-root {
   overflow: hidden;  
-  min-height: calc(110vh);
-  max-height: calc(110vh);  
+  height: calc(120vh - 6rem);  // 100% of the viewport height minus the height of the header
   border-radius: 1rem;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
-  background-color: #fa9999
+  background-color: #fa9999;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
     .left-content h1 {
@@ -25,6 +26,7 @@
       height: 3rem;
       font-size: 1.2rem;
       font-weight: bold;
+      margin-bottom: 1rem;
       border-radius: 5px;
       border: none;
       background-color: #A8D5E2;

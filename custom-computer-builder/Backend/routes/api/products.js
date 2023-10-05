@@ -3,15 +3,36 @@ const router = express.Router();
 const Product = require('../../models/Product');
 
 // @route   GET api/products
-// @desc    Get all products
+// @desc    Get all products with optional search, sort, and filter
 // @access  Public
 router.get('/', async (req, res) => {
-    try {
-      const products = await Product.find();
-      res.json(products);
-    } catch (err) {
-      res.status(500).json({ msg: 'Server Error' });
+  try {
+    const { search, sort, filter, page = 1, limit = 15 } = req.query;
+
+    let query = {};
+    if (search) {
+      query.name = { $regex: search, $options: 'i' };  // 'i' makes the regex case insensitive
     }
+    if (filter) {
+      query.category = filter;  // Assuming filter is by category
+    }
+
+    let sortObj = {};
+    if (sort) {
+      const [field, order] = sort.split('_');  // Assuming sort query is like "price_asc" or "price_desc"
+      sortObj[field] = order === 'asc' ? 1 : -1;
+    }
+
+    const products = await Product.find(query)
+      .sort(sortObj)
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit));
+
+    res.json(products);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: 'Server Error' });
+  }
 });
 
 // @route   POST api/products

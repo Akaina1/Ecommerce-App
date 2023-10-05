@@ -1,0 +1,51 @@
+// In your stylesheet
+.left-content-products.MuiContainer-root {
+    display: flex;
+    overflow: hidden;  
+    height: calc(110vh - 6rem);  // 100% of the viewport height minus the height of the header
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    background-color: #fa9999;
+    padding: 1rem;
+    justify-content: space-between;
+    flex-direction: column;
+        
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      font-weight: bold;
+      color: red;
+      margin-bottom: -280px;
+    }
+  
+    .search-bar {
+      width: 90%;  // Adjust as needed
+      padding: 1rem;
+      margin: 0 auto;  // Center the search bar
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+  
+    .filter-options,
+    .sort-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;  // Center the buttons
+  
+      button {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 1.2rem;
+  
+        &:hover {
+          background-color: #e0e0e0;
+          color:#000000;
+        }
+      }
+    }
+  }
+  
