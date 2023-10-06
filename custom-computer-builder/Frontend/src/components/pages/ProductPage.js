@@ -8,13 +8,14 @@ function ProductPage() {
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('');
 
+  // console.log({ search, filter, sort });  // Log the prop values here
+
   return (
     <Container maxWidth={false} style={{ margin: 0, overflowX: 'hidden'}}>
       <Grid container spacing={2} >
         {/* Left Sidebar */}
         <Grid item xs={2}>
          <ProductLeftContent setSearch={setSearch} setFilter={setFilter} setSort={setSort}>
-            <h1>Search</h1>
        
           </ProductLeftContent>
         </Grid>
@@ -22,7 +23,6 @@ function ProductPage() {
         {/* Central Content */}
         <Grid item xs={10}>
         <ProductCentralContent search={search} filter={filter} sort={sort}>
-          <h1>Product Page</h1>
   
         </ProductCentralContent>
         </Grid>

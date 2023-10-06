@@ -2,18 +2,21 @@ import React, {useState, useEffect} from 'react';
 import { Container, Grid, Button } from '@mui/material';
 import ProductCard from '../common/ProductCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts } from '../actions/actions'; 
+import { fetchProducts } from '../actions/actions';
+import selectProductData from '../actions/selector';
 import '../SASS/main.scss'
 
-function ProductCentralContent({ search, filter, sort }) {
+const ProductCentralContent = React.memo(function ProductCentralContent({ search, filter, sort }) {
+  // console.log('ProductCentralContent re-rendered');
+
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 15;
 
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector(state => state);
+  const { products, loading, error } = useSelector(selectProductData);
 
   useEffect(() => {
-    console.log('Fetching products with:', { search, filter, sort });  // log the values
+    // console.log('useEffect triggered', { search, filter, sort });
     dispatch(fetchProducts(currentPage, productsPerPage, search, filter, sort));
   }, [dispatch, currentPage, productsPerPage, search, filter, sort]);
 
@@ -54,6 +57,6 @@ function ProductCentralContent({ search, filter, sort }) {
       </Grid>     
   </Container>
   );
-}
+});
 
 export default ProductCentralContent;
