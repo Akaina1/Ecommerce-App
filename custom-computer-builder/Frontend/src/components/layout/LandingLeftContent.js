@@ -29,7 +29,7 @@ function LandingLeftContent({ children }) {
   useEffect(() => {
     const timer = setInterval(() => {
       cycleProducts();
-    }, 500000);
+    }, 5000);
 
     return () => clearInterval(timer);
   }, [onSaleProducts]);

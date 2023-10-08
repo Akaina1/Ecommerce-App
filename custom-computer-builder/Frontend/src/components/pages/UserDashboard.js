@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Grid } from '@mui/material';
-import LandingCentralContent from '../layout/LandingCentralContent';
-import LandingLeftContent from '../layout/LandingLeftContent';
+import UserDashboardCentralContent from '../layout/UserDashboardCentralContent';
+import UserDashboardLeftContent from '../layout/UserDashboardLeftContent';
 
 function UserDashboard() {
   return (
@@ -9,18 +9,18 @@ function UserDashboard() {
       <Grid container spacing={2} >
         {/* Left Sidebar */}
         <Grid item xs={2}>
-          <LandingLeftContent>
+          <UserDashboardLeftContent>
             <h1>Left Sidebar</h1>
  
-          </LandingLeftContent>
+          </UserDashboardLeftContent>
         </Grid>
   
         {/* Central Content */}
         <Grid item xs={10}>
-        <LandingCentralContent>
+        <UserDashboardCentralContent>
           <h1>User Dashboard</h1>
     
-        </LandingCentralContent>
+        </UserDashboardCentralContent>
         </Grid>
   
         </Grid>

@@ -1,0 +1,18 @@
+.user-dashboard-left-content.MuiContainer-root {
+    overflow: hidden;  
+    height: calc(120vh - 6rem);  // 100% of the viewport height minus the height of the header
+    border-radius: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    background-color: #fa9999;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+      .user-dashboard-left-content h1 {
+          font-size: 2rem;
+          text-align: center;
+          font-weight: bold;
+          color: red;
+          margin-bottom: 1rem;
+          margin-top: auto;
+      }
