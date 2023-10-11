@@ -1,4 +1,5 @@
 .build-left-content.MuiContainer-root {
+    position: relative;
     overflow: hidden;  
     height: calc(120vh - 6rem);  // 100% of the viewport height minus the height of the header
     border-radius: 1rem;
@@ -6,13 +7,110 @@
     background-color: #fa9999;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
   }
   
       .build-left-content h1 {
-          font-size: 2rem;
+          font-size: 2.2rem;
           text-align: center;
           font-weight: bold;
           color: red;
           margin-bottom: 1rem;
-          margin-top: auto;
+          margin-top: 1rem;
+      }
+
+      .asthetic-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        gap: 1rem;
+      }
+
+      .save-share-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        gap: 1rem;
+      }
+
+      .toggle-asthetic.MuiButtonBase-root {
+        height: 3rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        border: none;
+        background-color: #A8D5E2;
+        color: black;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+        transition: all 0.7s ease-in-out;
+        filter: grayscale(100%);
+        &:hover {
+            transform: scale(1.05);
+            background-color: #83e0fa;
+            filter: grayscale(0%);
+        }
+      }
+
+      .save-build.MuiButtonBase-root {
+        height: 3rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        border: none;
+        background-color: #A8D5E2;
+        color: black;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+        transition: all 0.7s ease-in-out;
+        filter: grayscale(100%);
+        &:hover {
+          transform: scale(1.05);
+          background-color: #83e0fa;
+          filter: grayscale(0%);
+        }
+      }
+
+      .share-build.MuiButtonBase-root {
+        height: 3rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        border: none;
+        background-color: #A8D5E2;
+        color: black;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+        transition: all 0.7s ease-in-out;
+        filter: grayscale(100%);
+        &:hover {
+            transform: scale(1.05);
+            background-color: #83e0fa;
+            filter: grayscale(0%);
+        }
+      }
+
+      .checkout.MuiButtonBase-root {
+        height: 3rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        border: none;
+        background-color: #A8D5E2;
+        color: black;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+        transition: all 0.7s ease-in-out;
+        filter: grayscale(100%);
+        &:hover {
+            transform: scale(1.05);
+            background-color: #83e0fa;
+            filter: grayscale(0%);
+        }
       }

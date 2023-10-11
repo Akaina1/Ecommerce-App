@@ -1,29 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Grid } from '@mui/material';
 import BuildCentralContent from '../layout/BuildCentralContent';
 import BuildLeftContent from '../layout/BuildLeftContent';
 
 function CustomBuilderPage() {
+  const [aestheticState, setAestheticState] = useState({
+    frontWindow: true,
+    backWindow: true,
+    backCover: true,
+    // ... other parts
+  });
+
+  const toggleAestheticPart = (...partTypes) => {
+    let newAestheticState = { ...aestheticState };
+    partTypes.forEach(partType => {
+      newAestheticState[partType] = !newAestheticState[partType];
+    });
+    setAestheticState(newAestheticState);
+  };
+
   return (
-    <Container maxWidth={false} style={{ margin: 0, overflowX: 'hidden'}}>
-      <Grid container spacing={2} >
-        {/* Left Sidebar */}
+    <Container maxWidth={false} style={{ margin: 0, overflowX: 'hidden' }}>
+      <Grid container spacing={2}>
         <Grid item xs={2}>
-          <BuildLeftContent>
-            <h1>Left Sidebar</h1>
-      
-          </BuildLeftContent>
+          <BuildLeftContent toggleAestheticPart={toggleAestheticPart} />
         </Grid>
-  
-        {/* Central Content */}
         <Grid item xs={10}>
-        <BuildCentralContent>
-          <h1>Custom Build Page</h1>
-      
-        </BuildCentralContent>
+          <BuildCentralContent aestheticState={aestheticState} />
         </Grid>
-  
-        </Grid>
+      </Grid>
     </Container>
   );
 }
