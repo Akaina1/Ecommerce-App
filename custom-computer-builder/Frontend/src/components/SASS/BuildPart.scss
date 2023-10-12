@@ -45,5 +45,10 @@
         color: #aaa;
       }
     }
+    // add hover effect to the build part
+    &:hover {
+      background-color: #aee6f7;
+      cursor: pointer;
+    }
   }
   

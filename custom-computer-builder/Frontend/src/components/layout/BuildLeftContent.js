@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Button } from '@mui/material';
 import BuildPart from '../common/BuildPart';
+import { SelectPartModal } from '../common/SelectPartModal';
 
 function BuildLeftContent({ toggleAestheticPart }) {
-  // State to hold selected parts
   const [selectedParts, setSelectedParts] = useState({});
-  // State to hold total cost
   const [totalCost, setTotalCost] = useState(0);
-  // List of part types
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPartType, setSelectedPartType] = useState(null);
   const PART_TYPES = [
     'CPU',
     'GPU',
@@ -39,6 +39,19 @@ function BuildLeftContent({ toggleAestheticPart }) {
     setTotalCost((prevTotal) => prevTotal + costDifference);
   };
 
+  // function to handle clicking on BuildPart
+  const handlePartClick = (partType) => {
+    setSelectedPartType(partType);
+    setIsModalOpen(true);
+  };
+
+  // function to close modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPartType(null);
+  };
+
+
   return (
     <Container maxWidth={false} className="build-left-content">
       <h1>Customize Your Build</h1>
@@ -52,12 +65,13 @@ function BuildLeftContent({ toggleAestheticPart }) {
       {/* List of customizable parts */}
       <div className="parts-list">
         {PART_TYPES.map((partType) => (
-        <BuildPart 
-          key={partType}
-          partType={partType}
-          product={selectedParts[partType]} // will be undefined if not selected, that's okay
-        />
-      ))}
+          <div key={partType} onClick={() => handlePartClick(partType)}>
+            <BuildPart
+              partType={partType}
+              product={selectedParts[partType]}
+            />
+          </div>
+        ))}
       </div>
 
       {/* Display total cost */}
@@ -73,6 +87,16 @@ function BuildLeftContent({ toggleAestheticPart }) {
 
       {/* Checkout button */}
       <Button className='checkout'>Checkout</Button>
+
+      {/* SelectPartModal */}
+      {isModalOpen && selectedPartType && (
+      <SelectPartModal
+        isOpen={isModalOpen}
+        partType={selectedPartType}
+        closeModal={closeModal}
+        handlePartSelect={handlePartSelect}
+      />
+    )}
 
     </Container>
   );

@@ -5,7 +5,7 @@ function BuildPart({ partType, product }) {
   return (
     <div className={`build-part ${product ? 'filled' : 'empty'}`}>
       <div className="product-picture">
-        {product && <img src={product.imageURL} alt={product.name} />}
+        {product && <img src={product.imageUrl} alt={product.name} />}
       </div>
       <div className="product-info">
         <span className="product-name">

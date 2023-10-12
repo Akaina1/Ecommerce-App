@@ -1,33 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal } from 'your-modal-library'; // replace this with the modal library you're using
-import BuildPart from './BuildPart'; // import the BuildPart component
+import Modal from '@mui/material/Modal'; // Correct import
+import BuildPart from './BuildPart';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../actions/actions'; 
+
 
 function SelectPartModal({ isOpen, partType, closeModal, handlePartSelect }) {
-  const [products, setProducts] = useState([]);
+  // Initialize Redux dispatch
+  const dispatch = useDispatch();
+  
+  // Access Redux store
+  const products = useSelector(state => state.products);  
 
-  // Placeholder for fetching products based on partType
   useEffect(() => {
-    if (isOpen) {
-      // Make an API call here to fetch products with the 'partType'
-      // Update 'products' state with the fetched data
+    if (isOpen && partType) {
+      // Here, 1 and 10 are sample values for 'page' and 'limit'.
+      // 'partType' is used for filtering products by 'productTags'.
+      dispatch(fetchProducts(1, 10, null, null, null, partType));
     }
-  }, [isOpen, partType]);
+  }, [isOpen, partType, dispatch]);
 
-  return (
-    <Modal isOpen={isOpen} onRequestClose={closeModal}>
+  // Wrap the content of the modal inside a div
+  const modalBody = (
+    <div className="modal-content">
       <h2>Select a {partType}</h2>
       <div className="product-list">
         {products.map((product) => (
-          <BuildPart
-            key={product.id}
-            partType={partType}
-            product={product}
-            onClick={() => handlePartSelect(partType, product)}
-          />
+          <div
+            key={product._id}
+            onClick={() => {
+              handlePartSelect(partType, product); // Pass the selected part to the parent component
+              closeModal();  //  close the modal after selection
+            }}
+          >
+            <BuildPart
+              partType={partType}
+              product={product}
+            />
+          </div>
         ))}
       </div>
       <button onClick={closeModal}>Close</button>
+    </div>
+  );
+
+  return (
+    // Use `open` instead of `isOpen`, and `onClose` instead of `onRequestClose`
+    <Modal open={isOpen} onClose={closeModal}>
+      {modalBody}
     </Modal>
   );
 }
@@ -39,4 +60,4 @@ SelectPartModal.propTypes = {
   handlePartSelect: PropTypes.func.isRequired,
 };
 
-export default SelectPartModal;
+export { SelectPartModal };
