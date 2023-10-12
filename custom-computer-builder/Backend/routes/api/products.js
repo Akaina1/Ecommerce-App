@@ -2,24 +2,39 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../../models/Product');
 
+// Validate productTags to be a comma-separated list
+const isValidProductTags = (tags) => {
+  return typeof tags === 'string' && /^[a-zA-Z0-9,]+$/.test(tags);
+};
+
 // @route   GET api/products
 // @desc    Get all products with optional search, sort, and filter
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    const { search, sort, filter, page = 1, limit = 15 } = req.query;
+    const { search, sort, category, productTags, page = 1, limit = 15 } = req.query;
 
     let query = {};
     if (search) {
-      query.name = { $regex: search, $options: 'i' };  // 'i' makes the regex case insensitive
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { productTags: { $in: [new RegExp(search, 'i')] } }
+      ];
     }
-    if (filter) {
-      query.category = filter;  // Assuming filter is by category
+    if (category) {
+      query.category = category;
+    }
+    if (productTags) {
+      if (isValidProductTags(productTags)) {
+        query.productTags = { $all: productTags.split(',') };
+      } else {
+        return res.status(400).json({ msg: 'Invalid productTags format' });
+      }
     }
 
     let sortObj = {};
     if (sort) {
-      const [field, order] = sort.split('_');  // Assuming sort query is like "price_asc" or "price_desc"
+      const [field, order] = sort.split('_');
       sortObj[field] = order === 'asc' ? 1 : -1;
     }
 
@@ -34,6 +49,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ msg: 'Server Error' });
   }
 });
+
 
 // @route   POST api/products
 // @desc    Create new products (supports bulk insert)
@@ -54,6 +70,7 @@ router.post('/', async (req, res) => {
     const newProduct = new Product({
       name: req.body.name,
       category: req.body.category,
+      productTags: req.body.productTags,  
       price: req.body.price,
       stockQuantity: req.body.stockQuantity,
       imageUrl: req.body.imageUrl,
@@ -95,13 +112,13 @@ router.put('/:id', async (req, res) => {
       console.log("Received ID:", req.params.id);
 
       if (!product) {
-          return res.status(404).json({ msg: 'Product not found' });
-         
+          return res.status(404).json({ msg: 'Product not found' });   
       }
 
       // Update fields
       product.name = req.body.name || product.name;
       product.category = req.body.category || product.category;
+      product.subCategory = req.body.subCategory || product.subCategory;
       product.price = req.body.price || product.price;
       product.stockQuantity = req.body.stockQuantity || product.stockQuantity;
       product.imageUrl = req.body.imageUrl || product.imageUrl;
