@@ -20,7 +20,8 @@ function BuildCentralContent({ aestheticState }) {
           'SSD',
           'HDD',
           'frontFans',
-          'backFans'
+          'backFans',
+          'cooling'
         ].includes(svg.id);
 
         if (isCustomizable) {

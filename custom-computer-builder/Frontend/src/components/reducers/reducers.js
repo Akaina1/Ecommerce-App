@@ -7,7 +7,8 @@ import {
   const initialState = {
     loading: false,
     products: [],
-    error: null
+    error: null,
+    totalProductCount: 0
   };
   
   const productsReducer = (state = initialState, action) => {
@@ -15,7 +16,12 @@ import {
       case FETCH_PRODUCTS_REQUEST:
         return { ...state, loading: true };
       case FETCH_PRODUCTS_SUCCESS:
-        return { ...state, loading: false, products: action.payload };
+        return { 
+          ...state, 
+          loading: false, 
+          products: action.payload.products,
+          totalProductCount: action.payload.totalProductCount
+        };
       case FETCH_PRODUCTS_FAILURE:
         return { ...state, loading: false, error: action.error };
       default:

@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 
 function BuildPart({ partType, product }) {
   return (
-    <div className="build-part">
-      {/* If product exists, render filled state. Otherwise, render empty state. */}
-      {product ? (
-        <div className="filled">
-          <span>{product.name}</span>
-          <span>${product.price}</span>
-        </div>
-      ) : (
-        <div className="empty">
-          <span>{`Empty ${partType}`}</span>
-        </div>
-      )}
+    <div className={`build-part ${product ? 'filled' : 'empty'}`}>
+      <div className="product-picture">
+        {product && <img src={product.imageURL} alt={product.name} />}
+      </div>
+      <div className="product-info">
+        <span className="product-name">
+          {product ? product.name : `Empty ${partType}`}
+        </span>
+        <span className="product-price">
+          {product ? `$${product.price}` : '$0'}
+        </span>
+      </div>
     </div>
   );
 }

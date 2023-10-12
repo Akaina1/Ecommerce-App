@@ -4,14 +4,19 @@ import { createSelector } from 'reselect';
 const selectProducts = state => state.products;
 const selectLoading = state => state.loading;
 const selectError = state => state.error;
+export const selectTotalProductCount = state => state.totalProductCount;
 
 // Memoized selector
 const selectProductData = createSelector(
-  [selectProducts, selectLoading, selectError],
-  (products, loading, error) => ({
+  selectProducts,
+  selectLoading,
+  selectError,
+  selectTotalProductCount,
+  (products, loading, error, totalProductCount) => ({
     products,
     loading,
-    error
+    error,
+    totalProductCount
   })
 );
 

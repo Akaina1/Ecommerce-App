@@ -1,23 +1,42 @@
 import React, { useState } from 'react';
 import { Container, Button } from '@mui/material';
-import ProductCard from '../common/ProductCard'; // Import your reusable ProductCard component
+import BuildPart from '../common/BuildPart';
 
 function BuildLeftContent({ toggleAestheticPart }) {
   // State to hold selected parts
   const [selectedParts, setSelectedParts] = useState({});
-
   // State to hold total cost
   const [totalCost, setTotalCost] = useState(0);
+  // List of part types
+  const PART_TYPES = [
+    'CPU',
+    'GPU',
+    'RAM',
+    'MOBO',
+    'SSD',
+    'HDD',
+    'PSU',
+    'Case',
+    'Cooling',
+    'FrontFans',
+    'BackFans',
+  ];
 
   // Function to handle part selection
   const handlePartSelect = (partType, product) => {
-    setSelectedParts({
+    const prevProduct = selectedParts[partType];
+    const newSelectedParts = {
       ...selectedParts,
       [partType]: product,
-    });
-
+    };
+    setSelectedParts(newSelectedParts);
+  
     // Update the total cost
-    setTotalCost(prevTotal => prevTotal + product.price);
+    let costDifference = product ? product.price : 0;
+    if (prevProduct) {
+      costDifference -= prevProduct.price;
+    }
+    setTotalCost((prevTotal) => prevTotal + costDifference);
   };
 
   return (
@@ -32,7 +51,13 @@ function BuildLeftContent({ toggleAestheticPart }) {
 
       {/* List of customizable parts */}
       <div className="parts-list">
-        {/* Here, you can map over the parts and generate a ProductCard if a part is selected */}
+        {PART_TYPES.map((partType) => (
+        <BuildPart 
+          key={partType}
+          partType={partType}
+          product={selectedParts[partType]} // will be undefined if not selected, that's okay
+        />
+      ))}
       </div>
 
       {/* Display total cost */}
