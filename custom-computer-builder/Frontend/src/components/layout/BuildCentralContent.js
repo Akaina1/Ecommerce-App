@@ -10,7 +10,7 @@ function BuildCentralContent({ aestheticState }) {
         let opacity = aestheticState[svg.id] ? 1 : 0;
         // Check if the part is customizable
         const isCustomizable = [
-          'frontViewEmpty',
+          //'frontViewEmpty',
           'case',
           'CPU',
           'GPU',

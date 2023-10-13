@@ -4,12 +4,6 @@ const PartSlot = ({ partType, partSVG, className }) => {
   // State to determine if the slot has a part selected or not.
   const [isPartSelected, setIsPartSelected] = useState(false);
 
-  // Function to open the part selection modal.
-  const openModal = () => {
-    // Code to open a modal for part selection.
-    console.log('Opening modal for', partType);
-  };
-
   // Function to indicate that a part has been selected.
   const selectPart = () => {
     setIsPartSelected(true);
@@ -21,7 +15,6 @@ const PartSlot = ({ partType, partSVG, className }) => {
       <img 
         src={partSVG}
         className={isPartSelected ? 'part-selected' : 'flashing'}
-        onClick={openModal}
         alt={`${partType} slot`}
       />
     </div>

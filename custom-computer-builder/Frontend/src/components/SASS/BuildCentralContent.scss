@@ -2,13 +2,13 @@
   position: relative;
 }
 
-#frontViewEmpty,
-.part-slot.frontViewEmpty {
+
+.frontViewEmpty {
   position: absolute;
   top: 60%;
   left: 15%;
   transform: translate(-50%, -60%);
-  opacity: 1;
+  opacity: 1 !important; // fix in future
 }
 
 #case,
@@ -49,7 +49,7 @@
 }
 
 #backWindow,
-.part-slot.backWindow {
+.backWindow {
   position: absolute;
   top: 50%;
   left: 66.6%;
@@ -59,7 +59,7 @@
 }
 
 #backCover,
-.part-slot.backCover {
+.backCover {
   position: absolute;
   top: 62%;
   left: 89%;

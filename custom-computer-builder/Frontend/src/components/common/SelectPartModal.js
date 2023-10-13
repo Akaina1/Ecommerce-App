@@ -21,7 +21,7 @@ function SelectPartModal({ isOpen, partType, closeModal, handlePartSelect }) {
     }
   }, [isOpen, partType, dispatch]);
 
-  // Wrap the content of the modal inside a div
+    // Render the modal body
   const modalBody = (
     <div className="modal-content">
       <h2>Select a {partType}</h2>
@@ -46,7 +46,6 @@ function SelectPartModal({ isOpen, partType, closeModal, handlePartSelect }) {
   );
 
   return (
-    // Use `open` instead of `isOpen`, and `onClose` instead of `onRequestClose`
     <Modal open={isOpen} onClose={closeModal}>
       {modalBody}
     </Modal>
