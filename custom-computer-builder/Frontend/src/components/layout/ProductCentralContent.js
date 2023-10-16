@@ -3,8 +3,8 @@ import { Container, Grid, Button } from '@mui/material';
 import ProductCard from '../common/ProductCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../actions/actions';
+import { useLocation } from 'react-router-dom'; // import useLocation
 import selectProductData, { selectTotalProductCount }from '../actions/selector';
-import '../SASS/main.scss'
 
 const ProductCentralContent = React.memo(function ProductCentralContent({ search, filter, sort }) {
   // console.log('ProductCentralContent re-rendered');
@@ -13,14 +13,24 @@ const ProductCentralContent = React.memo(function ProductCentralContent({ search
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector(selectProductData);
   const totalProductCount = useSelector(selectTotalProductCount); 
-
+  const location = useLocation();  // Hook to get the current URL location
 
   useEffect(() => {
-    //console.log('Current Page:', currentPage);  // Debugging line
-    //console.log('Total Products:', products.length);  // Debugging line
-    // console.log('useEffect triggered', { search, filter, sort });
-    dispatch(fetchProducts(currentPage, productsPerPage, search, filter, sort));
-  }, [dispatch, currentPage, search, filter, sort]);
+    // Extract query params from the URL
+    const params = new URLSearchParams(location.search);
+    const urlSearch = params.get('search');
+    const urlFilter = params.get('filter');
+  
+    let fetchSearch = urlSearch !== null ? urlSearch : search;
+    let fetchFilter = urlFilter !== null ? urlFilter : filter;
+    //console.log('Current Page:', currentPage);                      // Debugging line
+    //console.log('Total Products:', products.length);                // Debugging line
+    // console.log('useEffect triggered', { search, filter, sort });  // Debugging line
+
+    // Fetch products based on the query params and existing state
+  dispatch(fetchProducts(currentPage, productsPerPage, fetchSearch, fetchFilter, sort));
+
+}, [dispatch, currentPage, location.search, search, filter, sort]);
 
   function handlePagination(direction) {
     const newPage = direction === 'next' ? currentPage + 1 : currentPage - 1;

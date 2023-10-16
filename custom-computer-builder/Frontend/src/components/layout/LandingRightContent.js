@@ -4,10 +4,9 @@ import ProductSearch from '../common/ProductSearch';
 import UserInfo from '../common/UserInfo';
 import CartSection from '../common/CartSection';
 
-function LandingRightContent({ children }) {
+function LandingRightContent() {
   return (
     <Container maxWidth={false} className="right-content">
-      {children}
       <ProductSearch />
       <UserInfo />
       <CartSection />

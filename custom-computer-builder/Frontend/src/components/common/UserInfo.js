@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
-import '../SASS/UserInfo.scss';
 
 function UserInfo() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Mocking logged-in state

@@ -10,19 +10,30 @@ router.get('/', async (req, res) => {
     const { search, sort, filter, page = 1, limit = 15 } = req.query;
 
     let query = {};
+
+    let searchQuery = [];
+    let filterQuery = [];
+
     if (search) {
-      query.$or = [
+      searchQuery = [
         { name: { $regex: search, $options: 'i' } },
         { productTags: { $in: [new RegExp(search, 'i')] } }
       ];
     }
-
+    
     if (filter) {
-      //console.log('Filter condition triggered');
-      query.$or = [
+      filterQuery = [
         { category: filter },
         { productTags: { $in: [new RegExp(filter, 'i')] } }
       ];
+    }
+
+    if (searchQuery.length && filterQuery.length) {
+      query.$and = [{ $or: searchQuery }, { $or: filterQuery }];
+    } else if (searchQuery.length) {
+      query.$or = searchQuery;
+    } else if (filterQuery.length) {
+      query.$or = filterQuery;
     }
 
     let sortObj = {};

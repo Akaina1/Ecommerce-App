@@ -1,5 +1,4 @@
 import React from 'react';
-import '../SASS/CartSection.scss'
 import { Button } from '@mui/material';
 
 function CartSection() {
