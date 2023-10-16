@@ -7,7 +7,10 @@ function CartSection() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
+    // Get the user ID from the token
     const userId = getUserIdFromToken();
+
+    // Function to fetch the cart data
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/carts/${userId}`);
@@ -17,8 +20,11 @@ function CartSection() {
       }
     };
 
-    fetchData();
-  }, []);
+    // Only fetch data if userId is not null
+    if (userId !== null) {
+      fetchData();
+    }
+  }, []);  // Empty dependency array, so this runs only once when the component mounts
 
   return (
     <div className="cart-section-container">

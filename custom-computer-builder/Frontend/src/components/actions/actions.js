@@ -17,7 +17,7 @@ export const fetchProducts = (page, limit, searchQuery, filter, sort, partType) 
       if (partType) url += `&filter=${partType}`;  
       else if (filter) url += `&filter=${filter}`;  
       
-      console.log('Fetching products with URL:', url);  
+      //console.log('Fetching products with URL:', url);  
       
       const response = await axios.get(url);
       //console.log('Axios Response:', response);
