@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, Button } from '@mui/material';
 import ProductCard from '../common/ProductCard';
+import ProductModal from '../common/ProductModal';
 import { fetchOnSaleProducts } from '../API/productAPI';
 
 function LandingLeftContent({ children }) {
   const [onSaleProducts, setOnSaleProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);  // For loading state
   const [error, setError] = useState(null);  // For error handling
-  const [displayIndex, setDisplayIndex] = useState(0);  // New State
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [openModalProduct, setOpenModalProduct] = useState(null);  // For Modal
+  const [shouldCycle, setShouldCycle] = useState(true);  // state to control cycling
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,17 +26,18 @@ function LandingLeftContent({ children }) {
         setIsLoading(false);  // Set loading to false if an error occurs
       }
     };
-
     fetchData();
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      cycleProducts();
-    }, 5000);
-
+    let timer;
+    if (shouldCycle) {
+      timer = setInterval(() => {
+        cycleProducts();
+      }, 5000);
+    }
     return () => clearInterval(timer);
-  }, [onSaleProducts]);
+  }, [onSaleProducts, shouldCycle]);  // Added shouldCycle dependency
 
   const cycleProducts = () => {
     // Cycle products 3 at a time or display the remainder.
@@ -49,6 +54,24 @@ function LandingLeftContent({ children }) {
 
       return newIndex;
     });
+  };
+
+  const openModal = (product) => {
+    setOpenModalProduct(product);
+    setShouldCycle(false);  // Stop cycling when the modal opens
+  };
+
+  const closeModal = () => {
+    setOpenModalProduct(null);
+    setShouldCycle(true);  // Resume cycling when the modal closes
+  };
+
+  const handleMouseEnter = () => {
+    setShouldCycle(false);  // Stop cycling when mouse enters
+  };
+
+  const handleMouseLeave = () => {
+    setShouldCycle(true);  // Resume cycling when mouse leaves
   };
 
   // Select the products to display based on the current index.
@@ -74,11 +97,14 @@ function LandingLeftContent({ children }) {
           item xs={12} sm={6} md={4} 
           key={product._id}
           className="product-card visible" // No idea what this is for but it works
+          onMouseEnter={handleMouseEnter}  // New event handler
+          onMouseLeave={handleMouseLeave}  // New event handler
         > 
-          <ProductCard product={product} />
+          <ProductCard product={product} onClick={() => openModal(product)} />
         </Grid>
         ))}
       </Grid>
+      { openModalProduct && <ProductModal open={!!openModalProduct} product={openModalProduct} onClose={closeModal} /> }
     </Container>
   );
 }

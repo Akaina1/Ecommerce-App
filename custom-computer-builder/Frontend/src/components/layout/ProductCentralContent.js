@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../actions/actions';
 import { useLocation } from 'react-router-dom'; // import useLocation
 import selectProductData, { selectTotalProductCount }from '../actions/selector';
+import ProductModal from '../common/ProductModal';
 
 const ProductCentralContent = React.memo(function ProductCentralContent({ search, filter, sort }) {
   // console.log('ProductCentralContent re-rendered');
@@ -14,6 +15,7 @@ const ProductCentralContent = React.memo(function ProductCentralContent({ search
   const { products, loading, error } = useSelector(selectProductData);
   const totalProductCount = useSelector(selectTotalProductCount); 
   const location = useLocation();  // Hook to get the current URL location
+  const [openModalProduct, setOpenModalProduct] = useState(null);  // For Modal
 
   useEffect(() => {
     // Extract query params from the URL
@@ -32,10 +34,15 @@ const ProductCentralContent = React.memo(function ProductCentralContent({ search
 
 }, [dispatch, currentPage, location.search, search, filter, sort]);
 
+
   function handlePagination(direction) {
     const newPage = direction === 'next' ? currentPage + 1 : currentPage - 1;
     setCurrentPage(newPage);
   }
+  
+  const openModal = (product) => {
+  setOpenModalProduct(product);
+  };
 
   return (
     <Container maxWidth={false} className="central-content-products">
@@ -59,10 +66,11 @@ const ProductCentralContent = React.memo(function ProductCentralContent({ search
             key={product._id}
             className="product-card visible"
           >
-            <ProductCard product={product} />
+            <ProductCard product={product} onClick={() => openModal(product)} />
           </Grid>
         ))}
-      </Grid>     
+      </Grid>
+      { openModalProduct && <ProductModal open={!!openModalProduct} product={openModalProduct} onClose={() => setOpenModalProduct(null)} /> }     
   </Container>
   );
 });

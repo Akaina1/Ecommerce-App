@@ -2,9 +2,9 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 
-
-function ProductCard({ product }) {
+function ProductCard({ product, onClick }) {
     return (
+      <div onClick={() => onClick(product)}>
       <Card className="product-card" classes={{ root: 'my-card-root' }}>
         <CardMedia
           component="img"
@@ -30,6 +30,7 @@ function ProductCard({ product }) {
             )}
             </CardContent>
       </Card>
+    </div>
     );
   }
 
