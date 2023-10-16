@@ -3,3 +3,4 @@
 Backend/config/keys.js
 Backend/middleware/auth.js
 Backend/models/User.js
+Backend/node_modules/passport-jwt

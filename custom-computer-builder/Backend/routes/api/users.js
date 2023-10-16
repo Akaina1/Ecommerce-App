@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 // Load User model
 const User = require('../../models/User');
 
@@ -47,6 +48,7 @@ router.post('/register', (req, res) => {
 
 ///////////////////////////////////////////////////////////// User Login (POST Route) /////////////////////////////////////////////////////////////
 const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys');  // Adjust the path as needed
 
 // @route   POST api/users/login
 // @desc    Login user and return JWT token
@@ -75,7 +77,7 @@ router.post('/login', (req, res) => {
         // Sign token
         jwt.sign(
           payload,
-          "yourSecretOrKey", // Replace this with secret key
+          keys.jwtSecret,  // Using the key from keys.js
           {
             expiresIn: 31556926 // 1 year in seconds
           },

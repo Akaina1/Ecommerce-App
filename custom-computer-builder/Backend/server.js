@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const passport = require('../Backend/middleware/auth');  // Adjust the path as needed
+const passport = require('../Backend/middleware/auth');  
 
 
 // Import keys
@@ -27,7 +27,6 @@ app.use('/api/products', require('./routes/api/products'));
 app.use('/api/carts', require('./routes/api/carts'));
 app.use('/api/orders', require('./routes/api/orders'));
 app.use('/api/builds', require('./routes/api/builds'));
-
 
 
 const port = process.env.PORT || 5000;
