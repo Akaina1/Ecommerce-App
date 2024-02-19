@@ -90,13 +90,12 @@ router.post('/:userId/add', async (req, res) => {
       res.status(500).json({ msg: 'Server Error' });
     }
   });
-  
 
 
-// @route   PUT api/carts/:id
-// @desc    Update a cart
+// @route   PUT api/carts/:id/remove-item
+// @desc    Remove an item from the cart
 // @access  Public
-router.put('/:id', async (req, res) => {
+router.put('/:id/remove-item', async (req, res) => {
     try {
         const cart = await Cart.findById(req.params.id);
 
@@ -104,14 +103,22 @@ router.put('/:id', async (req, res) => {
             return res.status(404).json({ msg: 'Cart not found' });
         }
 
-        // Update fields
-        cart.items = req.body.items || cart.items;
-        // Add other fields to update here
+        // Check if the item to be removed exists in the cart
+        const itemIndex = cart.items.findIndex(item => item.productId === req.body.productId);
+
+        if (itemIndex === -1) {
+            return res.status(404).json({ msg: 'Item not found in the cart' });
+        }
+
+        // Remove the item from the cart
+        cart.items.splice(itemIndex, 1);
+        // You can add other fields to update here if needed
 
         await cart.save();
 
         res.json(cart);
     } catch (err) {
+        console.error(err.message);
         res.status(500).json({ msg: 'Server Error' });
     }
 });

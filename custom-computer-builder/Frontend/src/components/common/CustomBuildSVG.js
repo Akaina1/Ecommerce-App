@@ -16,10 +16,10 @@ import backCover from '../IMG/back cover.svg';
 // export array of svg images
 
 const svgArray = [
-    { id: 'frontViewEmpty', src: frontViewEmpty, alt: 'front view empty case'},
+    //{ id: 'frontViewEmpty', src: frontViewEmpty, alt: 'front view empty case'},
     { id: 'case', src: sideViewEmpty, alt: 'side view empty case'},
-    { id: 'frontWindow', src: frontWindow, alt: 'front window'},
-    { id: 'frontFans', src: frontFans, alt: 'front fans'},
+    //{ id: 'frontWindow', src: frontWindow, alt: 'front window'},
+    //{ id: 'frontFans', src: frontFans, alt: 'front fans'},
     { id: 'backFans', src: backFans, alt: 'back fans'},
     { id: 'backWindow', src: backWindow, alt: 'back window'},
     { id: 'backCover', src: backCover, alt: 'back cover'},

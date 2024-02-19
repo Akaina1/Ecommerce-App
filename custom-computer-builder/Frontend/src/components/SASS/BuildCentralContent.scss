@@ -2,58 +2,32 @@
   position: relative;
 }
 
-
-.frontViewEmpty {
-  position: absolute;
-  top: 60%;
-  left: 15%;
-  transform: translate(-50%, -60%);
-  opacity: 1 !important; // fix in future
-}
-
 #case,
 .part-slot.case{
   position: absolute;
-  top: 60%;
-  left: 70%;
-  transform: translate(-50%, -60%);
+  top: 0;
+  left: 30vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
 }
 
-#frontFans,
-.part-slot.frontFans {
-  position: absolute;
-  top: 66%;
-  left: 10%;
-  transform: translate(-50%, -65.5%);
-  opacity: 1;
-}
 
 #backFans,
 .part-slot.backFans {
   position: absolute;
-  top: 100%;
-  left: 90.5%;
-  transform: translate(-50%, -105%);
+  top: -15vh;
+  left: 45vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
 }
 
-#frontWindow,
-.part-slot.frontWindow {
-  position: absolute;
-  top: 62%;
-  left: 10%;
-  transform: translate(-50%, -62%);
-  opacity: 1;
-  z-index: 1;
-}
 
 #backWindow,
 .backWindow {
   position: absolute;
-  top: 50%;
-  left: 66.6%;
-  transform: translate(-50%, -64%);
+  top: -2vh;
+  left: 27vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 2;
 }
@@ -61,9 +35,9 @@
 #backCover,
 .backCover {
   position: absolute;
-  top: 62%;
-  left: 89%;
-  transform: translate(-50%, -62.5%);
+  top: -2vh;
+  left: 46vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 2;
 }
@@ -71,9 +45,9 @@
 #GPU,
 .part-slot.GPU {
   position: absolute;
-  top: 50%;
-  left: 58%;
-  transform: translate(-50%, -45%);
+  top: 10vh;
+  left: 20vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 1;
 }
@@ -81,9 +55,9 @@
 #CPU,
 .part-slot.CPU {
   position: absolute;
-  top: 50%;
-  left: 66%;
-  transform: translate(-50%, -130%);
+  top: -18vh;
+  left: 27vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 1;
 }
@@ -91,9 +65,9 @@
 #RAM,
 .part-slot.RAM {
   position: absolute;
-  top: 50%;
-  left: 74%;
-  transform: translate(-50%, -128%);
+  top: -17vh;
+  left: 34vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 1;
 }
@@ -101,9 +75,9 @@
 #PSU,
 .part-slot.PSU {
   position: absolute;
-  top: 50%;
-  left: 77%;
-  transform: translate(-50%, 27%);
+  top: 27vh;
+  left: 36vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 1;
 }
@@ -111,27 +85,27 @@
 #MOBO,
 .part-slot.MOBO {
   position: absolute;
-  top: 50%;
-  left: 63%;
-  transform: translate(-50%, -74%);
+  top: 0;
+  left: 25vw;
+  transform: translate(-50%, -60%);
   opacity: 1;
 }
 
 #HDD,
 .part-slot.HDD {
   position: absolute;
-  top: 50%;
-  left: 59%;
-  transform: translate(-50%, 82%);
+  top: 30vh;
+  left: 20vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
 }
 
 #SSD,
 .part-slot.SSD {
   position: absolute;
-  top: 50%;
-  left: 55%;
-  transform: translate(-50%, -135%);
+  top: -20vh;
+  left: 19vw;
+  transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 1;
 }

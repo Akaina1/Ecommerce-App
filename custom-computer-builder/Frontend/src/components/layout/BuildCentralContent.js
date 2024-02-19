@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@mui/material';
 import svgArray from '../common/CustomBuildSVG';
-import PartSlot from '../common/PartSlot'; // Make sure the import path is correct
+import PartSlot from '../common/PartSlot'; 
 
 function BuildCentralContent({ aestheticState }) {
   return (
@@ -10,7 +10,6 @@ function BuildCentralContent({ aestheticState }) {
         let opacity = aestheticState[svg.id] ? 1 : 0;
         // Check if the part is customizable
         const isCustomizable = [
-          //'frontViewEmpty',
           'case',
           'CPU',
           'GPU',

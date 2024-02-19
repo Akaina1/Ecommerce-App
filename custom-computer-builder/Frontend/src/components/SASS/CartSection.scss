@@ -16,10 +16,9 @@
   }
 
   .cart-item {
-    display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-    padding: 0.5rem;
+    padding: 0rem;
     border-bottom: 1px solid #ddd;
   }
 
@@ -35,4 +34,18 @@
       margin-top: 1rem;
     }
   }
+
+  .custom-button {
+    background-color: transparent; // Example background color
+    color: #ff2c2c; // Example text color
+    font-size: large;
+    text-shadow: #000000 1px 1px 1px;
+    
+     border: none; // Example border
+     cursor: pointer;
+       
+     &:hover {
+       scale: 1.5;
+     }
+   }
 }

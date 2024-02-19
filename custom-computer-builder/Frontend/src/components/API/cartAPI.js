@@ -16,3 +16,16 @@ export const handleAddToCart = async (userId, productId, quantity) => {
     return null;
   }
 };
+
+// Function to remove a product from the cart
+export const handleRemoveFromCart = async (cartId, productId) => {
+  try {
+    const response = await axios.put(`${baseURL}/${cartId}/remove-item`, {
+      productId,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('An error occurred while removing the item from the cart:', error);
+    return null;
+  }
+};

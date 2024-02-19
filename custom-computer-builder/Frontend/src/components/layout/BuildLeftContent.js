@@ -58,8 +58,7 @@ function BuildLeftContent({ toggleAestheticPart }) {
 
       {/* Aesthetic toggles */}
       <div className='asthetic-controls'>
-      <Button className='toggle-asthetic' onClick={() => toggleAestheticPart('frontWindow')}>Open Front Case</Button>
-      <Button className='toggle-asthetic' onClick={() => toggleAestheticPart('backWindow', 'backCover')}>Open Back Case</Button>
+      <Button className='toggle-asthetic' onClick={() => toggleAestheticPart('backWindow', 'backCover')}>Open Case</Button>
       </div>
 
       {/* List of customizable parts */}

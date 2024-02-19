@@ -2,35 +2,54 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import axios from 'axios';
 import { getUserIdFromToken } from '../API/userAPI'; // Or wherever you have this function defined
+import { handleRemoveFromCart } from '../API/cartAPI';
 
 function CartSection() {
   const [cartItems, setCartItems] = useState([]);
+  const [cartId, setCartId] = useState(null);
 
   useEffect(() => {
-    // Get the user ID from the token
     const userId = getUserIdFromToken();
 
-    // Function to fetch the cart data
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/carts/${userId}`);
-        setCartItems(response.data.items || []);
+        // Only fetch data if userId is not null or undefined
+        if (userId) {
+          const response = await axios.get(`http://localhost:5000/api/carts/${userId}`);
+          setCartItems(response.data.items || []);
+          setCartId(response.data._id);
+        }
       } catch (error) {
         console.error('Error fetching cart:', error);
       }
     };
 
-    // Only fetch data if userId is not null
-    if (userId !== null) {
-      fetchData();
+    // Fetch data whenever cartId or cartItems change
+    fetchData();
+  }, [getUserIdFromToken(), cartId, cartItems]);
+
+  // Function to handle removal of an item from the cart
+  const handleRemoveItemClick = (productId) => {
+    if (cartId) {
+      handleRemoveFromCart(cartId, productId)
+        .then((response) => {
+          // Handle success, update cartItems
+          console.log('Item removed successfully:', response);
+        })
+        .catch((error) => {
+          console.error('Error removing item from the cart:', error);
+        });
+    } else {
+      console.error('Cart ID is not available.');
     }
-  }, []);  // Empty dependency array, so this runs only once when the component mounts
+  };
 
   return (
     <div className="cart-section-container">
       <h3>Your Cart:</h3>
       {cartItems.map((item, index) => (
         <div key={index} className="cart-item">
+          <Button className="custom-button" onClick={() => handleRemoveItemClick(item.productId)}>X</Button>
           <span>{item.product.name} (x{item.quantity})</span> 
           <span>${item.product.price}</span>
         </div>
