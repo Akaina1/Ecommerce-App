@@ -1,4 +1,3 @@
 # .gitignore
 
 Backend/config/keys.js
-Backend/middleware/auth.js
