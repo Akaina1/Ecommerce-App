@@ -11,18 +11,23 @@ export async function loginUser(email, password) {
       body: JSON.stringify({ email, password }), // Updated 'username' to 'email'
     });
 
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, message: errorData.message || 'userAPI-16-Login failed' };
+    }
+
     const data = await response.json();
 
-    if (data.success) {
-      localStorage.setItem('token', data.token);
-      window.location.reload(); // Refresh the page
-      return { success: true, token: data.token };
-    } else {
-      return { success: false, message: 'Login failed' };
-    }
+    localStorage.setItem('token', data.token);
+
+    // Decode the JWT to get user details
+    const decoded = jwt_decode(data.token);
+
+    // Return success with user details
+    return { success: true, token: data.token, username: decoded.username, userId: decoded.id };    
   } catch (error) {
-    console.error('Error during login:', error);
-    return { success: false, message: 'Something went wrong' };
+    console.error('userAPI-29-Error during login:', error);
+    return { success: false, message: 'userAPI-30-Something went wrong' };
   }
 }
 

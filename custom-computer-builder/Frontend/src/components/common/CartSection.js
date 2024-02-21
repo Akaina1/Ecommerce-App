@@ -63,7 +63,7 @@ function CartSection() {
           <span>Estimated Tax</span>
           <span>${Math.round(cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0) * 0.1)}</span>
         </div>
-        <Button variant="contained" color="primary" className="checkout-button">Checkout</Button>
+        <Button variant="contained" color="button" className="checkout-button">Checkout</Button>
       </div>
     </div>
   );

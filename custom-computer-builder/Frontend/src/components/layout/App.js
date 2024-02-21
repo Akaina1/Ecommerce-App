@@ -8,6 +8,7 @@ import '../SASS/main.scss';
 
 import Header from './Header';
 import Footer from './Footer';
+import { AuthenticationProvider } from '../common/AuthenticationProvider'; // Import the updated AuthenticationProvider
 
 import LandingPage from '../pages/LandingPage';
 import ProductPage from '../pages/ProductPage';
@@ -20,29 +21,31 @@ import { CssBaseline } from '@mui/material';
 function App() {
   return (
     <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <div className="App">
-          {/* Header Component */}
-          <Header />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+          <AuthenticationProvider>
+            <div className="App">
+              {/* Header Component */}
+              <Header />
 
-          {/* Main Content */}
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/products" element={<ProductPage />} />
-            <Route path="/custom-build" element={<CustomBuilderPage />} />
-            <Route path="/user-dashboard" element={<UserDashboard />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            {/* ... other routes */}
-          </Routes>
+              {/* Main Content */}
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/products" element={<ProductPage />} />
+                <Route path="/custom-build" element={<CustomBuilderPage />} />
+                <Route path="/user-dashboard" element={<UserDashboard />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                {/* ... other routes */}
+              </Routes>
 
-          {/* Footer Component */}
-          <Footer />
-        </div>
-      </Router>
-    </ThemeProvider>
+              {/* Footer Component */}
+              <Footer />
+            </div>
+          </AuthenticationProvider>
+        </Router>
+      </ThemeProvider>
     </Provider>
   );
 }

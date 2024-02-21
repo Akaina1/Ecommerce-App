@@ -28,7 +28,7 @@ function ProductBanner({ size, imageSrc, title, description, buttonLink, buttonT
             maxWidth: '100%',  // Ensures the banner fits within the parent width
             height: getHeight(),  // Function to set height based on size prop
             padding: 2,
-            color: '#fff',
+            color: 'black',
         
           }}
         >
@@ -39,7 +39,7 @@ function ProductBanner({ size, imageSrc, title, description, buttonLink, buttonT
           <Typography variant="subtitle1" component="p" gutterBottom>
             {description}
           </Typography>
-          <Button variant="contained" color="secondary" href={buttonLink}>
+          <Button variant="contained" color="button" href={buttonLink}>
             {buttonText}
           </Button>
         </div>

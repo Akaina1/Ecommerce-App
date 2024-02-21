@@ -59,7 +59,7 @@ function ProductSearch() {
 
       <Button 
         variant="contained" 
-        color="primary" 
+        color="button" 
         type="submit"
       >
         Submit

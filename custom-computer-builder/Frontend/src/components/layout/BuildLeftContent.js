@@ -55,12 +55,6 @@ function BuildLeftContent({ toggleAestheticPart }) {
   return (
     <Container maxWidth={false} className="build-left-content">
       <h1>Customize Your Build</h1>
-
-      {/* Aesthetic toggles */}
-      <div className='asthetic-controls'>
-      <Button className='toggle-asthetic' onClick={() => toggleAestheticPart('backWindow', 'backCover')}>Open Case</Button>
-      </div>
-
       {/* List of customizable parts */}
       <div className="parts-list">
         {PART_TYPES.map((partType) => (

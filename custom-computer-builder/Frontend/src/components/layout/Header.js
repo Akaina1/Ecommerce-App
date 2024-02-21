@@ -2,8 +2,11 @@ import React from 'react';
 import NavButton from '../common/NavButton';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import { useAuth } from '../common/AuthenticationProvider'; // Import the useAuth hook
 
 function Header() {
+  const { isLoggedIn, username } = useAuth(); // Use the hook to get isLoggedIn and username
+
   return (
     <AppBar position="static" className="App-header">
       <Toolbar>
@@ -23,7 +26,8 @@ function Header() {
 
         {/* User and Cart Icons */}
         <div className="icons">
-          {/* Placeholder for user and cart icons */}
+          {isLoggedIn && <h3>Welcome, {username}</h3>}
+          {/* You can also add a CartIcon component here */}
         </div>
       </Toolbar>
     </AppBar>
