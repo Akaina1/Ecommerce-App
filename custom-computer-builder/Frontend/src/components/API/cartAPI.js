@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base URL for your Cart API
-const baseURL = 'http://localhost:5000/api/carts' || 'https://custompc-backend.fly.dev/api/carts';
+const baseURL ='https://custompc-backend.fly.dev/api/carts'||'http://localhost:5000/api/carts';
 
 // Function to add a product to the cart
 export const handleAddToCart = async (userId, productId, quantity) => {

@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 // login function
 export async function loginUser(email, password) {
   try {
-    const response = await fetch('http://localhost:5000/api/users/login' || 'https://custompc-backend.fly.dev/api/users/login', {
+    const response = await fetch('https://custompc-backend.fly.dev/api/users/login'||'http://localhost:5000/api/users/login' , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

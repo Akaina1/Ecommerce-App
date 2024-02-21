@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/api/products' || 'https://custompc-backend.fly.dev/api/products';
+const BASE_URL = 'https://custompc-backend.fly.dev/api/products'||'http://localhost:5000/api/products';
 
 export const fetchOnSaleProducts = async () => {
     try {

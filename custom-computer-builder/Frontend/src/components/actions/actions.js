@@ -4,7 +4,7 @@ export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
 
-const BASE_URL = 'http://localhost:5000/api/products' || 'https://custompc-backend.fly.dev/api/products';
+const BASE_URL ='https://custompc-backend.fly.dev/api/products'||'http://localhost:5000/api/products';
 
 export const fetchProducts = (page, limit, searchQuery, filter, sort, partType) => {
   //console.log('Fetching products with:', { page, limit, searchQuery, filter,sort  });  

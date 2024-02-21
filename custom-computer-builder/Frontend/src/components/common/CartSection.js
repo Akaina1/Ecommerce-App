@@ -4,7 +4,7 @@ import axios from 'axios';
 import { getUserIdFromToken } from '../API/userAPI'; // Or wherever you have this function defined
 import { handleRemoveFromCart } from '../API/cartAPI';
 
-const BASE_URL = 'http://localhost:5000/api/carts' || 'https://custompc-backend.fly.dev/api/carts';
+const BASE_URL = 'https://custompc-backend.fly.dev/api/carts'||'http://localhost:5000/api/carts';
 
 function CartSection() {
   const [cartItems, setCartItems] = useState([]);
