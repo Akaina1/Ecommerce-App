@@ -4,6 +4,8 @@ import axios from 'axios';
 import { getUserIdFromToken } from '../API/userAPI'; // Or wherever you have this function defined
 import { handleRemoveFromCart } from '../API/cartAPI';
 
+const BASE_URL = 'http://localhost:5000/api/carts' || 'https://custompc-backend.fly.dev/api/carts';
+
 function CartSection() {
   const [cartItems, setCartItems] = useState([]);
   const [cartId, setCartId] = useState(null);
@@ -15,7 +17,7 @@ function CartSection() {
       try {
         // Only fetch data if userId is not null or undefined
         if (userId) {
-          const response = await axios.get(`http://localhost:5000/api/carts/${userId}`);
+          const response = await axios.get(`${BASE_URL}/${userId}`);
           setCartItems(response.data.items || []);
           setCartId(response.data._id);
         }
