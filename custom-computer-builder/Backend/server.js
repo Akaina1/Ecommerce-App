@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const passport = require('../Backend/middleware/auth');
+const passport = require('./middleware/auth');
 
 // Import keys
 const db = require('./config/keys').mongoURI;
@@ -40,6 +40,8 @@ app.use('/api/carts', require('./routes/api/carts'));
 app.use('/api/orders', require('./routes/api/orders'));
 app.use('/api/builds', require('./routes/api/builds'));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server running on port ${port}`);
+});
