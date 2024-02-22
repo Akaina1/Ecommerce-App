@@ -1,31 +1,48 @@
+// Import the getAllUserBuilds function from your buildsAPI.js file
+import {useState, useEffect} from 'react';
+import { getAllUserBuilds } from '../API/buildsAPI';
+import { useAuth } from '../common/AuthenticationProvider';
+import Build from './Build'; // Import the Build component if not already imported
+import '../SASS/UserBuilds.scss'; // Import the SASS file
+import { Container, Typography, Button } from '@mui/material';
+
+
 function UserBuilds() {
-    const [builds, setBuilds] = useState([]);
+  const { userId } = useAuth(); // Include userId from the authentication context
+  const [builds, setBuilds] = useState([]);
+  const storedToken = localStorage.getItem('token'); // Retrieve token from local storage
 
   useEffect(() => {
-    async function fetchBuilds() {
-      try {
-        const response = await axios.get('/api/builds');
-        setBuilds(response.data);
-      } catch (err) {
-        console.error(err);
-      }
+    // Fetch user builds when userId and token are available
+    if (userId && storedToken) {
+      getAllUserBuilds(userId, storedToken)
+        .then((result) => {
+          if (result.success) {
+            setBuilds(result.builds);
+          } else {
+            console.error(result.message);
+          }
+        })
+        .catch((error) => {
+          console.error('Error during getAllUserBuilds:', error);
+        });
     }
-
-    fetchBuilds();
-  }, []);
+  }, [userId, storedToken]); // Include storedToken in dependencies
 
   return (
-    <div>
-      <h2>My Computer Builds</h2>
-
-      {builds.map(build => (
-        <Build
-          key={build._id}
+    <Container maxWidth="md" className="builds-container">
+      
+    <Typography variant="h4" className="builds-header">
+        Your Computer Builds
+      </Typography>
+      
+      {builds.map((build) => (
+        <Build 
+          key={build._id} 
           build={build}
         />
       ))}
-
-    </div>
+    </Container>
   );
 }
 

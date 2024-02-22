@@ -1,0 +1,29 @@
+.build-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #fff; // Use your desired background color
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+  
+    h5 {
+      margin-bottom: 8px;
+    }
+  
+    .total-price {
+      margin-bottom: 8px;
+    }
+  
+    .part-list {
+      list-style: none;
+      padding: 0;
+  
+      .part-item {
+        margin-bottom: 8px;
+      }
+    }
+  }
