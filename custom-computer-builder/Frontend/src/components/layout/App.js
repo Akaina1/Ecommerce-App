@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { Provider } from 'react-redux';
@@ -19,6 +19,12 @@ import CheckoutPage from '../pages/CheckoutPage';
 import { CssBaseline } from '@mui/material';
 
 function App() {
+  const [selectedOption, setSelectedOption] = useState('Profile'); // Default selection
+
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  };
+
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
@@ -34,7 +40,18 @@ function App() {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/products" element={<ProductPage />} />
                 <Route path="/custom-build" element={<CustomBuilderPage />} />
-                <Route path="/user-dashboard" element={<UserDashboard />} />
+
+                {/* User Dashboard Route */}
+                <Route
+                  path="/user-dashboard"
+                  element={
+                    <UserDashboard
+                      onSelect={handleOptionSelect}
+                      selectedOption={selectedOption}
+                    />
+                  }
+                />
+
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 {/* ... other routes */}

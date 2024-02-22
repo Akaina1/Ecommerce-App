@@ -8,7 +8,7 @@ export async function loginUser(email, password) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }), // Updated 'username' to 'email'
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {
@@ -23,11 +23,16 @@ export async function loginUser(email, password) {
     // Decode the JWT to get user details
     const decoded = jwt_decode(data.token);
 
-    // Return success with user details
-    return { success: true, token: data.token, username: decoded.username, userId: decoded.id };    
+    // Return success with user details, including email
+    return {
+      success: true,
+      token: data.token,
+      username: decoded.username,
+      userId: decoded.id,
+    };    
   } catch (error) {
     console.error('userAPI-29-Error during login:', error);
-    return { success: false, message: 'userAPI-30-Something went wrong' };
+    return { success: false, message: 'userAPI-36-Something went wrong' };
   }
 }
 
@@ -38,7 +43,6 @@ export function getUserIdFromToken() {
     const decoded = jwt_decode(token.split(' ')[1]);
     return decoded.id;
 }
-
 
 // register function///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export async function registerUser(username, email, password) {
@@ -75,3 +79,26 @@ export const handleLogout = (setIsLoggedIn, setUsername) => {
   // reflect that the user is logged out.
   window.location.reload();
 };
+// find user function///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export async function getUserById(userId, token) {
+  try {
+    const response = await fetch(`https://custompc-backend.fly.dev/api/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, message: errorData.message || 'Failed to fetch user information' };
+    }
+
+    const data = await response.json();
+    return { success: true, userInfo: { email: data.email } };
+  } catch (error) {
+    console.error('Error during getUserInfo:', error);
+    return { success: false, message: 'Something went wrong while fetching user information' };
+  }
+}

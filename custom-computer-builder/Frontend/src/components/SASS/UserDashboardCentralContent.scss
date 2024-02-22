@@ -18,29 +18,3 @@
           margin-top: auto;
           text-align: center;
       }
-      /* For Webkit browsers like Chrome/Safari */
-      .user-dashboard-central-content::-webkit-scrollbar {
-        width: 12px;  
-      }
-  
-      .user-dashboard-central-content::-webkit-scrollbar-track {
-        background-color: #F0F4F8; 
-        border-radius: 10px;  
-      }
-  
-      .user-dashboard-central-content::-webkit-scrollbar-thumb {
-        background-color: #A8D5E2; 
-        border-radius: 10px;  
-        border: 2px solid #F0F4F8; 
-      }
-  
-      .user-dashboard-central-content::-webkit-scrollbar-thumb:hover {
-        background-color: #618B9E;  
-      }
-  
-      /* For Firefox */
-      .user-dashboard-central-content {
-        scrollbar-width: thin;  
-        scrollbar-color: #A8D5E2 #F0F4F8;  
-      }
-  

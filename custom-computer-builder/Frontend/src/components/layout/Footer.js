@@ -8,7 +8,7 @@ function Footer() {
 
   return (
     <Paper elevation={3} className="Footer" style={{ backgroundColor: theme.palette.primary.main, padding: '10px', color: 'white' }}>
-      <p>© 2023 CustomPC. All rights reserved.</p>
+      <p>© 2024 Green Customs. All rights reserved.</p>
       {/* Additional footer content can go here */}
     </Paper>
   );

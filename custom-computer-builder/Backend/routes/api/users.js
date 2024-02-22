@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     .then(users => res.json(users))
     .catch(err => res.status(500).json({ msg: 'Server Error' }));
 });
-module.exports = router;
+
 ///////////////////////////////////////////////////////////// User Registration (POST Route) /////////////////////////////////////////////////////////////
 const bcrypt = require('bcryptjs');
 
@@ -45,6 +45,7 @@ router.post('/register', (req, res) => {
       }
     });
 });
+
 ///////////////////////////////////////////////////////////// User Login (POST Route) /////////////////////////////////////////////////////////////
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');  // Adjust the path as needed
@@ -95,3 +96,33 @@ router.post('/login', (req, res) => {
     });
   });
 });
+///////////////////////////////////////////////////////////// Get Specific User (GET Route) /////////////////////////////////////////////////////////////
+// @route   GET api/users/id
+// @desc    find user info by id
+// @access  Public
+router.get('/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Find user by _id
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Extract relevant user information
+    const userData = {
+      username: user.username,
+      email: user.email,
+      // Add other fields as needed
+    };
+
+    res.json(userData);
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = router;
