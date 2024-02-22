@@ -11,38 +11,50 @@ export const useAuth = () => {
 
 // Authentication provider component
 export const AuthenticationProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
+  const storedToken = localStorage.getItem('token');
+  const storedUsername = localStorage.getItem('username');
+  const [isLoggedIn, setIsLoggedIn] = useState(!!storedToken);
+  const [username, setUsername] = useState(storedUsername || '');
 
-  // Function to handle user login
-    const handleLogin = async (email, password) => {
+  const handleLogin = async (email, password) => {
     try {
       const result = await loginUser(email, password);
       if (result.success) {
-        setIsLoggedIn(true);  // Set isLoggedIn to true when login is successful
+        setIsLoggedIn(true);
         setUsername(result.username);
+        localStorage.setItem('token', result.token);
+        localStorage.setItem('username', result.username);
       } else {
-        setIsLoggedIn(false);  // Set isLoggedIn to false when login fails
+        setIsLoggedIn(false);
         console.error(result.message);
       }
       return result;
     } catch (error) {
       console.error('Error during login:', error);
-      setIsLoggedIn(false);  // Set isLoggedIn to false in case of an error
+      setIsLoggedIn(false);
       return { success: false, message: 'Something went wrong' };
     }
   };
 
-  // Function to handle user logout
   const handleUserLogout = () => {
     handleLogout(setIsLoggedIn, setUsername);
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
   };
+
+  // Check for stored token and username on initial load
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    const storedUsername = localStorage.getItem('username');
+    setIsLoggedIn(!!storedToken);
+    setUsername(storedUsername || '');
+  }, []);
 
   const authContextValue = {
     isLoggedIn,
-    setIsLoggedIn, // Add this line
+    setIsLoggedIn,
     username,
-    setUsername, // Add this line
+    setUsername,
     onLogin: handleLogin,
     onLogout: handleUserLogout,
   };

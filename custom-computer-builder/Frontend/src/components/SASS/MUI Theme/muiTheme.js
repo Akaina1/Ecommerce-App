@@ -15,13 +15,16 @@ const theme = createTheme({
         main: '#FFCC94',
       },
       button: {
-        main: '#95E1D3',
+        main: '#99DDC8',
       },
       success: {
         main: '#C4FCEF',
       },
       logout: {
         main: '#fa9999',
+      },
+      register: {
+        main: '#edca2f',
       },
     },
     typography: {

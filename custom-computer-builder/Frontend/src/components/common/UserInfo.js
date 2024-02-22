@@ -3,12 +3,14 @@ import { Button, TextField } from '@mui/material';
 import jwt_decode from 'jwt-decode'; // Import jwt_decode
 import { useAuth } from './AuthenticationProvider';
 import NavButton from '../common/NavButton';
+import RegisterModal from './RegisterModal';
 
 
 function UserInfo() {
   const { isLoggedIn, setIsLoggedIn, setUsername, username, onLogin, onLogout } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false); // Add state for the register modal
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -39,6 +41,14 @@ function UserInfo() {
     onLogout();
   };
 
+  const openRegisterModal = () => {
+    setIsRegisterModalOpen(true);
+  };
+
+  const closeRegisterModal = () => {
+    setIsRegisterModalOpen(false);
+  };
+
   return (
     <div className="user-info-container">
       {isLoggedIn ? (
@@ -65,8 +75,14 @@ function UserInfo() {
           <Button variant="contained" color="button" onClick={handleLogin}>
             Login
           </Button>
+          <Button variant="contained" color="register" onClick={openRegisterModal}>
+            Register
+          </Button>
         </div>
       )}
+
+      {/* Render the RegisterModal component */}
+      <RegisterModal isOpen={isRegisterModalOpen} handleClose={closeRegisterModal} />
     </div>
   );
 }

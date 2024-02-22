@@ -45,7 +45,6 @@ router.post('/register', (req, res) => {
       }
     });
 });
-
 ///////////////////////////////////////////////////////////// User Login (POST Route) /////////////////////////////////////////////////////////////
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');  // Adjust the path as needed

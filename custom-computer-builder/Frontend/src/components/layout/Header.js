@@ -12,7 +12,7 @@ function Header() {
       <Toolbar>
         {/* Logo */}
         <div className="logo">
-          <h1>CustomPC</h1>
+          <h1>Green Customs</h1>
         </div>
 
         {/* Navigation */}

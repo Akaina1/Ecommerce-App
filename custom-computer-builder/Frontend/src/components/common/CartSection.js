@@ -12,23 +12,63 @@ function CartSection() {
 
   useEffect(() => {
     const userId = getUserIdFromToken();
-
+  
     const fetchData = async () => {
       try {
         // Only fetch data if userId is not null or undefined
         if (userId) {
-          const response = await axios.get(`${BASE_URL}/${userId}`);
-          setCartItems(response.data.items || []);
-          setCartId(response.data._id);
+          try {
+            const response = await axios.get(`${BASE_URL}/${userId}`);
+  
+            if (response.data.msg && response.data.msg === 'Cart not found') {
+              // Cart not found, create a new cart
+              try {
+                const newCartResponse = await axios.post(`${BASE_URL}`, {
+                  user: userId,
+                  items: [],
+                });
+  
+                // Update the cartId and set an empty array for cartItems
+                setCartId(newCartResponse.data._id);
+                setCartItems([]);
+              } catch (error) {
+                console.error('Error creating new cart:', error);
+              }
+            } else {
+              // Cart found, update cartId and cartItems
+              setCartItems(response.data.items || []);
+              setCartId(response.data._id);
+            }
+          } catch (error) {
+            // Handle 404 error if the user's cart is not found
+            if (error.response && error.response.status === 404) {
+              console.log('User does not have a cart. Creating a new one.');
+              try {
+                const newCartResponse = await axios.post(`${BASE_URL}`, {
+                  user: userId,
+                  items: [],
+                });
+  
+                // Update the cartId and set an empty array for cartItems
+                setCartId(newCartResponse.data._id);
+                setCartItems([]);
+              } catch (error) {
+                console.error('Error creating new cart:', error);
+              }
+            } else {
+              // Handle other errors
+              console.error('Error fetching cart:', error);
+            }
+          }
         }
       } catch (error) {
-        console.error('Error fetching cart:', error);
+        console.error('General error:', error);
       }
     };
-
-    // Fetch data whenever cartId or cartItems change
+  
+    // Fetch data whenever userId changes
     fetchData();
-  }, [getUserIdFromToken(), cartId, cartItems]);
+  }, [getUserIdFromToken()]);
 
   // Function to handle removal of an item from the cart
   const handleRemoveItemClick = (productId) => {

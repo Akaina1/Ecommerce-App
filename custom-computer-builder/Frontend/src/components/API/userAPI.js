@@ -1,6 +1,6 @@
 import jwt_decode from 'jwt-decode';
 
-// login function
+// login function///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export async function loginUser(email, password) {
   try {
     const response = await fetch('https://custompc-backend.fly.dev/api/users/login'||'http://localhost:5000/api/users/login' , {
@@ -31,7 +31,7 @@ export async function loginUser(email, password) {
   }
 }
 
-// Utility function to get userId from stored token
+// Utility function to get userId from stored token////////////////////////////////////////////////////////////////////////////////////////////////////////
 export function getUserIdFromToken() {
     const token = localStorage.getItem('token');
     if (!token) return null;
@@ -39,9 +39,33 @@ export function getUserIdFromToken() {
     return decoded.id;
 }
 
-// register function
 
-// logout function
+// register function///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export async function registerUser(username, email, password) {
+  try {
+    const response = await fetch('https://custompc-backend.fly.dev/api/users/register' || 'http://localhost:5000/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return { success: false, message: errorData.email || 'userAPI-16-Registration failed' };
+    }
+
+    const data = await response.json();
+
+    // Return success with user details
+    return { success: true, user: data };
+  } catch (error) {
+    console.error('userAPI-32-Error during registration:', error);
+    return { success: false, message: 'userAPI-33-Something went wrong' };
+  }
+}
+// logout function///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const handleLogout = (setIsLoggedIn, setUsername) => {
   localStorage.removeItem('token');
   setIsLoggedIn(false);
