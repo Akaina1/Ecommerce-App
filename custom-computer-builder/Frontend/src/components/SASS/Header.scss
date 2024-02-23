@@ -21,6 +21,8 @@
   
   .App-logo {
     object-fit: cover; // Crop the logo while maintaining aspect ratio
+    //greyscale the image:
+    filter: grayscale(60%);
   }
 
   .App-nav {
