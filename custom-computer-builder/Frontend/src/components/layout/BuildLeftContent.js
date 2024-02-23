@@ -75,11 +75,11 @@ function BuildLeftContent({ toggleAestheticPart }) {
       {/* Placeholder buttons for future features */}
       <div className='save-share-buttons'>
       <Button className='save-build'>Save Build</Button>
-      <Button className='share-build'>Share Build</Button>
+      <Button className='share-build'>Load Build</Button>
       </div>
 
       {/* Checkout button */}
-      <Button className='checkout'>Checkout</Button>
+      <Button className='checkout'>Add Build to Cart</Button>
 
       {/* SelectPartModal */}
       {isModalOpen && selectedPartType && (

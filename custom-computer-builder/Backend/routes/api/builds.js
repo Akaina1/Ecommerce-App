@@ -63,6 +63,33 @@ router.get('/user/:userId', passport.authenticate('jwt', { session: false }), (r
       res.status(500).json({ msg: 'Server Error' });
     });
 });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// @route PUT api/builds/:id
+// @desc Update a build
+// @access Private
+router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Build.findById(req.params.id)
+    .then(build => {
+      if (!build) {
+        return res.status(404).json({ msg: 'Build not found' });
+      }
+
+      // Check if the user making the request is the owner of the build
+      if (build.user.toString() === req.user.id) {
+
+        // Update build fields
+        build.parts = req.body.parts;
+        build.totalPrice = req.body.totalPrice;
+
+        build.save()
+          .then(updatedBuild => res.json(updatedBuild))
+          .catch(err => res.status(500).json({ msg: 'Server Error', err }));
+      } else {
+        res.status(401).json({ msg: 'Unauthorized' });
+      }
+    })
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // @route   DELETE api/builds/:id

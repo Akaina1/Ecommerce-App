@@ -15,13 +15,12 @@
   .logo {
     display: flex;
     justify-content: center;
-    width: 100%;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
+    overflow: hidden; 
   }
-
-  .logo h1 {
-    margin: 0;
-    font-size: 2rem;
+  
+  .App-logo {
+    object-fit: cover; // Crop the logo while maintaining aspect ratio
   }
 
   .App-nav {

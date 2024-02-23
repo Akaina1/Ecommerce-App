@@ -3,6 +3,7 @@ import NavButton from '../common/NavButton';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useAuth } from '../common/AuthenticationProvider'; // Import the useAuth hook
+import Logo from '../IMG/Green_Logo.png';
 
 function Header() {
   const { isLoggedIn, username } = useAuth(); // Use the hook to get isLoggedIn and username
@@ -12,7 +13,7 @@ function Header() {
       <Toolbar>
         {/* Logo */}
         <div className="logo">
-          <h1>Green Customs</h1>
+          <img src={Logo} alt="Logo" className='App-logo' />
         </div>
 
         {/* Navigation */}
