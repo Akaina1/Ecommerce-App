@@ -16,14 +16,14 @@ function LandingLeftContent({ children }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);  // Set loading to true before fetching data
+        setIsLoading(true);  
         const products = await fetchOnSaleProducts();
         setOnSaleProducts(products);
-        setIsLoading(false);  // Set loading to false after fetching data
+        setIsLoading(false);  
       } catch (error) {
         console.error('Error fetching on-sale products: ', error);
         setError("Could not fetch the products. Please try again later.");
-        setIsLoading(false);  // Set loading to false if an error occurs
+        setIsLoading(false);  
       }
     };
     fetchData();
@@ -37,7 +37,7 @@ function LandingLeftContent({ children }) {
       }, 5000);
     }
     return () => clearInterval(timer);
-  }, [onSaleProducts, shouldCycle]);  // Added shouldCycle dependency
+  }, [onSaleProducts, shouldCycle]);  
 
   const cycleProducts = () => {
     // Cycle products 3 at a time or display the remainder.
@@ -75,7 +75,7 @@ function LandingLeftContent({ children }) {
   };
 
   // Select the products to display based on the current index.
-  const displayedProducts = onSaleProducts.slice(displayIndex, displayIndex + 3);
+  const displayedProducts = onSaleProducts.slice(displayIndex, displayIndex + 2);
 
   return (
     <Container maxWidth={false} className="left-content">
@@ -97,8 +97,8 @@ function LandingLeftContent({ children }) {
           item xs={12} sm={6} md={4} 
           key={product._id}
           className="product-card visible" // No idea what this is for but it works
-          onMouseEnter={handleMouseEnter}  // New event handler
-          onMouseLeave={handleMouseLeave}  // New event handler
+          onMouseEnter={handleMouseEnter}  
+          onMouseLeave={handleMouseLeave}  
         > 
           <ProductCard product={product} onClick={() => openModal(product)} />
         </Grid>

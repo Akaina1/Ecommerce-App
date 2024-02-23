@@ -1,66 +1,62 @@
-import '../SASS/Profile.scss'; // Import the SASS file
+// Import necessary modules and styles
+import '../SASS/Profile.scss';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../common/AuthenticationProvider';
-import { Container, Typography, Button } from '@mui/material';
-import { getUserById } from '../API/userAPI';  // Import the getUserById function
+import { Container, Typography } from '@mui/material';
+import { getUserById } from '../API/userAPI';  
 
 
 function Profile() {
-    const { isLoggedIn, username, onLogout, userId, token } = useAuth(); // Include userId and token from the authentication context
-    const [email, setEmail] = useState('');  // State to store user email
+  const { username, userId } = useAuth();
+  const [email, setEmail] = useState('');
 
-    useEffect(() => {
-        // Fetch user information when userId and token are available
+  useEffect(() => {
+
+    const fetchUserInfo = async () => {
+      try {
         const storedToken = localStorage.getItem('token');
-        if (isLoggedIn && userId && storedToken) {
-          getUserById(userId, storedToken) // Use storedToken directly
-            .then((result) => {
-              if (result.success) {
-                // Set the email in state
-                setEmail(result.userInfo.email);
-              } else {
-                console.error(result.message);
-              }
-            })
-            .catch((error) => {
-              console.error('Error during getUserById:', error);
-            });
+        if (userId && storedToken) {
+          const result = await getUserById(userId, storedToken);
+
+          if (result.success) {
+            setEmail(result.userInfo.email);
+          } else {
+            console.error(result.message);
+          }
         }
-      }, [isLoggedIn, userId]); // Removed 'token' from dependencies
-  
-       return (
-        <Container maxWidth="md" className="profile-container">
-        {isLoggedIn ? (
-            <>
-            <Typography variant="h4" className="profile-header">
-                Your Account Information
-            </Typography>
-            <div className="profile-info">
-                <Typography variant="body1" className="profile-label">
-                Username:
-                </Typography>
-                <Typography variant="body1" className="profile-text">
-                {username}
-                </Typography>
-            </div>
-            <div className="profile-info">
-                <Typography variant="body1" className="profile-label">
-                Email:
-                </Typography>
-                <Typography variant="body1" className="profile-text">
-                {email}
-                </Typography>
-            </div>
-            {/* Add the Password section (input fields or whatever is needed) */}
-            </>
-        ) : (
-            <Typography variant="body1" className="profile-text">
-            Please log in to view your profile.
-            </Typography>
-        )}
-        </Container>
-    );
-    }
-  
-  export default Profile;
-  
+      } catch (error) {
+        console.error('Error during getUserById:', error);
+      }
+    };
+
+
+    fetchUserInfo();
+  }, [userId]); 
+
+  return (
+    <Container maxWidth="md" className="profile-container">
+      <Typography variant="h4" className="profile-header">
+        Your Account Information
+      </Typography>
+      <div className="profile-info">
+        <Typography variant="body1" className="profile-label">
+          Username:
+        </Typography>
+        <Typography variant="body1" className="profile-text">
+          {username}
+        </Typography>
+      </div>
+      <div className="profile-info">
+        <Typography variant="body1" className="profile-label">
+          Email:
+        </Typography>
+        <Typography variant="body1" className="profile-text">
+          {email}
+        </Typography>
+      </div>
+      {/* Adding the Password section eventually */}
+    </Container>
+  );
+}
+
+export default Profile;

@@ -5,6 +5,7 @@ import { useAuth } from '../common/AuthenticationProvider';
 import Build from './Build'; // Import the Build component if not already imported
 import '../SASS/UserBuilds.scss'; // Import the SASS file
 import { Container, Typography, Button } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 
 function UserBuilds() {
@@ -30,18 +31,17 @@ function UserBuilds() {
   }, [userId, storedToken]); // Include storedToken in dependencies
 
   return (
-    <Container maxWidth="md" className="builds-container">
+    <Container maxWidth="2xl" className="builds-container">
       
     <Typography variant="h4" className="builds-header">
         Your Computer Builds
       </Typography>
       
-      {builds.map((build) => (
-        <Build 
-          key={build._id} 
-          build={build}
-        />
-      ))}
+      <Grid container spacing={3}>
+        {builds.map((build) => (
+          <Build key={build._id} build={build} />
+        ))}
+      </Grid>
     </Container>
   );
 }
