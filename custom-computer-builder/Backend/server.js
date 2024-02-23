@@ -13,11 +13,9 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 
-// Configure CORS to allow connections from your Fly.io domain
-const allowedOrigins = ['https://custompc-backend.fly.dev', 'http://localhost:3000'];  // Add your Fly.io domain here
+const allowedOrigins = ['https://custompc-backend.fly.dev', 'http://localhost:3000']; 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -28,12 +26,10 @@ app.use(cors({
 
 app.use(passport.initialize());
 
-// Connect to MongoDB
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-// Use Routes (You'll define these in your routes folder)
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/products', require('./routes/api/products'));
 app.use('/api/carts', require('./routes/api/carts'));
