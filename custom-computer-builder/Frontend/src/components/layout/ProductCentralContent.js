@@ -10,12 +10,26 @@ import ProductModal from '../common/ProductModal';
 const ProductCentralContent = React.memo(function ProductCentralContent({ search, filter, sort }) {
   // console.log('ProductCentralContent re-rendered');
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 15;
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector(selectProductData);
   const totalProductCount = useSelector(selectTotalProductCount); 
   const location = useLocation();  // Hook to get the current URL location
   const [openModalProduct, setOpenModalProduct] = useState(null);  // For Modal
+
+  const calculateProductsPerPage = () => {
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+  
+    if (screenWidth >= 2560 && screenHeight >= 1440) {
+      return 15; 
+    } else if (screenWidth >= 1920 && screenHeight >= 1080) {
+      return 10; 
+    } else {
+      return 5; 
+    }
+  };
+  
+  const productsPerPage = calculateProductsPerPage();
 
   useEffect(() => {
     // Extract query params from the URL
@@ -25,9 +39,6 @@ const ProductCentralContent = React.memo(function ProductCentralContent({ search
   
     let fetchSearch = urlSearch !== null ? urlSearch : search;
     let fetchFilter = urlFilter !== null ? urlFilter : filter;
-    //console.log('Current Page:', currentPage);                      // Debugging line
-    //console.log('Total Products:', products.length);                // Debugging line
-    // console.log('useEffect triggered', { search, filter, sort });  // Debugging line
 
     // Fetch products based on the query params and existing state
   dispatch(fetchProducts(currentPage, productsPerPage, fetchSearch, fetchFilter, sort));

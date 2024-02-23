@@ -6,11 +6,26 @@ import { fetchOnSaleProducts } from '../API/productAPI';
 
 function LandingLeftContent({ children }) {
   const [onSaleProducts, setOnSaleProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);  // For loading state
-  const [error, setError] = useState(null);  // For error handling
+  const [isLoading, setIsLoading] = useState(true); 
+  const [error, setError] = useState(null);  
   const [displayIndex, setDisplayIndex] = useState(0);
-  const [openModalProduct, setOpenModalProduct] = useState(null);  // For Modal
-  const [shouldCycle, setShouldCycle] = useState(true);  // state to control cycling
+  const [openModalProduct, setOpenModalProduct] = useState(null);  
+  const [shouldCycle, setShouldCycle] = useState(true);
+  
+  const calculateProductsPerPage = () => {
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+  
+    if (screenWidth >= 2560 && screenHeight >= 1440) {
+      return 3; 
+    } else if (screenWidth >= 1920 && screenHeight >= 1080) {
+      return 2; 
+    } else {
+      return 1; 
+    }
+  };
+  
+  const productsPerPage = calculateProductsPerPage();
 
 
   useEffect(() => {
@@ -40,15 +55,12 @@ function LandingLeftContent({ children }) {
   }, [onSaleProducts, shouldCycle]);  
 
   const cycleProducts = () => {
-    // Cycle products 3 at a time or display the remainder.
     setDisplayIndex((prevIndex) => {
       let newIndex = prevIndex + 3;
 
       if (newIndex >= onSaleProducts.length) {
-        // If newIndex is greater than the total number of products, start over at 0
         newIndex = 0;
       } else if (newIndex + 3 > onSaleProducts.length) {
-        // If adding another 3 exceeds the length, go to the last index
         newIndex = onSaleProducts.length - (onSaleProducts.length % 3 || 3);
       }
 
@@ -75,7 +87,7 @@ function LandingLeftContent({ children }) {
   };
 
   // Select the products to display based on the current index.
-  const displayedProducts = onSaleProducts.slice(displayIndex, displayIndex + 2);
+  const displayedProducts = onSaleProducts.slice(displayIndex, displayIndex + productsPerPage);
 
   return (
     <Container maxWidth={false} className="left-content">
@@ -84,7 +96,6 @@ function LandingLeftContent({ children }) {
         <Button className='pagination-btn' onClick={() => cycleProducts('prev')}>Previous</Button>
         <Button className='pagination-btn' onClick={() => cycleProducts('next')}>Next</Button>
       </div>
-      {/* Existing Loading and Error states */}
       <Grid 
         container 
         spacing={2} 
