@@ -3,12 +3,14 @@ import { Button } from '@mui/material';
 import axios from 'axios';
 import { getUserIdFromToken } from '../API/userAPI'; // Or wherever you have this function defined
 import { handleRemoveFromCart } from '../API/cartAPI';
+import  DevModal  from '../common/DevModal';
 
 const BASE_URL = 'https://custompc-backend.fly.dev/api/carts'||'http://localhost:5000/api/carts';
 
 function CartSection() {
   const [cartItems, setCartItems] = useState([]);
   const [cartId, setCartId] = useState(null);
+  const [isDevModalOpen, setDevModalOpen] = useState(false);
 
   useEffect(() => {
     const userId = getUserIdFromToken();
@@ -87,6 +89,14 @@ function CartSection() {
     }
   };
 
+  const handleOpenDevModal = () => {
+    setDevModalOpen(true);
+  };
+
+  const handleCloseDevModal = () => {
+    setDevModalOpen(false);
+  };
+
   return (
     <div className="cart-section-container">
       <h3>Your Cart:</h3>
@@ -106,7 +116,9 @@ function CartSection() {
           <span>Estimated Tax</span>
           <span>${Math.round(cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0) * 0.1)}</span>
         </div>
-        <Button variant="contained" color="button" className="checkout-button">Checkout</Button>
+        <Button variant="contained" color="button" className="checkout-button" onClick={handleOpenDevModal}>Checkout</Button>
+
+        <DevModal isOpen= {isDevModalOpen} onClose={handleCloseDevModal} />
       </div>
     </div>
   );
