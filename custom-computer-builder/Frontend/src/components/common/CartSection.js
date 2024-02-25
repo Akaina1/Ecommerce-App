@@ -77,6 +77,7 @@ function CartSection() {
         .then((response) => {
           // Handle success, update cartItems
           console.log('Item removed successfully:', response);
+          window.location.reload();
         })
         .catch((error) => {
           console.error('Error removing item from the cart:', error);

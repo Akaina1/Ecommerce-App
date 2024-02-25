@@ -34,5 +34,15 @@
 }
 
 .icons {
-  // Styles for user and cart icons
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+}
+
+.welcome-message {
+  margin-right: 10px; /* Adjust the margin between the welcome message and the button */
+}
+
+.cart-button {
+  margin-left: 10px; /* Adjust the margin between the button and other elements */
+  background-color: transparent;
 }
