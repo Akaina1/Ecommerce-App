@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import { useNavigate } from 'react-router-dom';
 import { useBuild } from '../common/BuildProvider';
 import '../SASS/Build.scss';
+import DevModal from './DevModal';
 
 function Build({ build }) {
+  const [isDevModalOpen, setDevModalOpen] = useState(false);
   const buildContext = useBuild();
   const navigate = useNavigate();
 
@@ -18,6 +21,14 @@ function Build({ build }) {
       handleLoadBuild(build);
       navigate('/custom-build');
     }
+  };
+
+  const handleOpenDevModal = () => {
+    setDevModalOpen(true);
+  };
+
+  const handleCloseDevModal = () => {
+    setDevModalOpen(false);
   };
 
   return (
@@ -36,9 +47,18 @@ function Build({ build }) {
             </li>
           ))}
         </ul>
-        <Button variant="outlined" color="primary" onClick={handleClick}>
-          Load Build
-        </Button>
+        {/* Use ButtonGroup for load and delete buttons */}
+        <ButtonGroup>
+          <Button variant="outlined" color="primary" onClick={handleClick}>
+            Load Build
+          </Button>
+          <Button variant="outlined" color="error" onClick={handleOpenDevModal}>
+            Delete Build
+          </Button>
+        </ButtonGroup>
+
+        <DevModal isOpen={isDevModalOpen} onClose={handleCloseDevModal} />
+
       </Paper>
     </Grid>
   );
