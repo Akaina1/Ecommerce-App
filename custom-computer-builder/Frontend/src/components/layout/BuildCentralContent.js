@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container } from '@mui/material';
+import UserBuilds from '../common/UserBuilds';
 
-function BuildCentralContent({ aestheticState }) {
+function BuildCentralContent() {
   return (
     <Container maxWidth={false} className="build-central-content">
-     {/* // rework incoming */}
+      <UserBuilds />
     </Container>
   );
 }

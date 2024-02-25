@@ -17,6 +17,7 @@ import UserDashboard from '../pages/UserDashboard';
 import CartPage from '../pages/CartPage';
 import CheckoutPage from '../pages/CheckoutPage';
 import { CssBaseline } from '@mui/material';
+import { BuildProvider } from '../common/BuildProvider';
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('Profile'); // Default selection
@@ -31,6 +32,7 @@ function App() {
         <CssBaseline />
         <Router>
           <AuthenticationProvider>
+            <BuildProvider>
             <div className="App">
               {/* Header Component */}
               <Header />
@@ -60,6 +62,7 @@ function App() {
               {/* Footer Component */}
               <Footer />
             </div>
+            </BuildProvider>
           </AuthenticationProvider>
         </Router>
       </ThemeProvider>

@@ -4,6 +4,7 @@ import Profile from '../common/Profile'; // Import your components
 import UserBuilds from '../common/UserBuilds';
 import UserOrders from '../common/Orders';
 import AddressBook from '../common/AddressBook';
+import { BuildProvider } from '../common/BuildProvider';
 
 function UserDashboardCentralContent({ selectedOption }) {
   // Helper function to render the appropriate component based on the selected option
@@ -23,9 +24,9 @@ function UserDashboardCentralContent({ selectedOption }) {
   };
 
   return (
-    <Container maxWidth={false} className="user-dashboard-central-content">
-      {renderContent()}
-    </Container>
+      <Container maxWidth={false} className="user-dashboard-central-content">
+        {renderContent()}
+      </Container>
   );
 }
 

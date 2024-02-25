@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Button } from '@mui/material';
 import BuildPart from '../common/BuildPart';
 import { SelectPartModal } from '../common/SelectPartModal';
+import { useAuth } from '../common/AuthenticationProvider';
+import { createBuild } from '../API/buildsAPI';
+import { useBuild } from '../common/BuildProvider';
 
-function BuildLeftContent({ toggleAestheticPart }) {
+function BuildLeftContent({ loadedBuild }) {
   const [selectedParts, setSelectedParts] = useState({});
   const [totalCost, setTotalCost] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPartType, setSelectedPartType] = useState(null);
+  const storedToken = localStorage.getItem('token'); 
+  const {userId} = useAuth();
+  
+  console.log('BuildLeftContent re-rendered. Selected Parts:', selectedParts);
+  console.log('loadedBuild:', loadedBuild);
+
   const PART_TYPES = [
     'CPU',
     'GPU',
@@ -16,10 +25,10 @@ function BuildLeftContent({ toggleAestheticPart }) {
     'SSD',
     'HDD',
     'PSU',
-    'Case',
-    'Cooling',
-    'FrontFans',
-    'BackFans',
+    'CASE',
+    'COOLING',
+    'FRONTFANS',
+    'BACKFANS',
   ];
 
   // Function to handle part selection
@@ -51,6 +60,63 @@ function BuildLeftContent({ toggleAestheticPart }) {
     setSelectedPartType(null);
   };
 
+  // Function to handle saving or updating a build
+  const handleSaveBuild = async () => {
+    try {
+      // Prepare the new build object
+      const newBuild = {
+        user: userId, // Use the userId obtained from the context
+        parts: selectedParts,
+        totalPrice: totalCost,
+      };
+
+      // Use the createBuild function to create a new build
+      const createBuildResult = await createBuild(newBuild, storedToken); // Replace with the actual auth token
+
+      if (createBuildResult.success) {
+        // Handle success, e.g., show a success message, update UI, etc.
+        console.log('Build created successfully:', createBuildResult.build);
+        window.location.reload();
+      } else {
+        // Handle failure, e.g., show an error message, log the error, etc.
+        console.error('Failed to create build:', createBuildResult.message);
+      }
+    } catch (error) {
+      // Handle unexpected errors
+      console.error('Error during build creation:', error);
+    }
+  };
+
+  // Function to handle setting each part from the loaded build
+  const setPartsFromLoadedBuild = (loadedBuild) => {
+    const partsFromLoadedBuild = loadedBuild.parts || {};
+    setSelectedParts(partsFromLoadedBuild);
+
+    // Calculate the total cost based on the loaded build
+    const totalCostFromLoadedBuild = loadedBuild.totalPrice || 0;
+    setTotalCost(totalCostFromLoadedBuild);
+  };
+
+
+
+
+  // useEffect to update selected parts when loadedBuild changes
+  useEffect(() => {
+    if (loadedBuild) {
+      // Set parts from the loaded build
+      setPartsFromLoadedBuild(loadedBuild);
+    }
+  }, [loadedBuild]);
+
+
+
+
+
+  const handleUpdateBuild = () => {
+    // Logic to update existing build
+    console.log('Update build logic here');
+  }
+
 
   return (
     <Container maxWidth={false} className="build-left-content">
@@ -72,10 +138,10 @@ function BuildLeftContent({ toggleAestheticPart }) {
         Total: ${totalCost}
       </div>
 
-      {/* Placeholder buttons for future features */}
-      <div className='save-share-buttons'>
-      <Button className='save-build'>Save Build</Button>
-      <Button className='share-build'>Load Build</Button>
+      {/* Save and Load buttons */}
+      <div className='save-load-update-buttons'>
+        <Button className='save-build' onClick={handleSaveBuild}>Save Build</Button>
+        <Button className='update-build' onClick={handleUpdateBuild}>Update Build</Button>
       </div>
 
       {/* Checkout button */}

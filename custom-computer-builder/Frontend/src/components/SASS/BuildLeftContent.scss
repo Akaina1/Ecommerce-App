@@ -21,15 +21,7 @@
           margin-top: 1rem;
       }
 
-      .asthetic-controls {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-        gap: 1rem;
-      }
-
-      .save-share-buttons {
+      .save-load-update-buttons {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -56,7 +48,26 @@
         }
       }
 
-      .share-build.MuiButtonBase-root {
+      .load-build.MuiButtonBase-root {
+        height: 3rem;
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        border: none;
+        background-color: #A8D5E2;
+        color: black;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+        transition: all 0.7s ease-in-out;
+        filter: grayscale(100%);
+        &:hover {
+            transform: scale(1.05);
+            background-color: #83e0fa;
+            filter: grayscale(0%);
+        }
+      }
+
+      .update-build.MuiButtonBase-root {
         height: 3rem;
         font-size: 1rem;
         font-weight: bold;
