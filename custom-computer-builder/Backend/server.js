@@ -13,7 +13,7 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 
-const allowedOrigins = ['https://custompc-backend.fly.dev', 'http://localhost:3000']; 
+const allowedOrigins = ['https://custompc-backend.fly.dev', 'http://localhost:3000', 'https://green-customs.netlify.app']; 
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
