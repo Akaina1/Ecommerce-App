@@ -6,17 +6,31 @@ const passport = require('../../middleware/auth');
 // @route   POST api/builds/
 // @desc    Create a new build
 // @access  Private
-router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    // Retrieve prices of the parts from MongoDB
+    const partIds = Object.values(req.body.parts);
+    const parts = await Product.find({ _id: { $in: partIds } });
+
+    // Calculate the total price based on the retrieved prices
+    const totalPrice = parts.reduce((acc, part) => acc + part.price, 0);
+
+    // Update the newBuild object
     const newBuild = new Build({
-      user: req.user.id, // Passport will populate req.user
+      user: req.user.id,
       parts: req.body.parts,
-      totalPrice: req.body.totalPrice
+      totalPrice: totalPrice // Updated to use calculated total price
     });
-  
-    newBuild.save()
-      .then(build => res.json(build))
-      .catch(err => res.status(500).json({ msg: 'Server Error', err }));
-  });
+
+    // Save the newBuild object to the database
+    const build = await newBuild.save();
+
+    res.json(build);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server Error', err });
+  }
+});
   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -68,29 +82,40 @@ router.get('/user/:userId', passport.authenticate('jwt', { session: false }), (r
 // @route PUT api/builds/:id
 // @desc Update a build
 // @access Private
-router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Build.findById(req.params.id)
-    .then(build => {
-      if (!build) {
-        return res.status(404).json({ msg: 'Build not found' });
-      }
+router.put('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const build = await Build.findById(req.params.id);
 
-      // Check if the user making the request is the owner of the build
-      if (build.user.toString() === req.user.id) {
+    if (!build) {
+      return res.status(404).json({ msg: 'Build not found' });
+    }
 
-        // Update build fields
-        build.parts = req.body.parts;
-        build.totalPrice = req.body.totalPrice;
+    // Check if the user making the request is the owner of the build
+    if (build.user.toString() === req.user.id) {
 
-        build.save()
-          .then(updatedBuild => res.json(updatedBuild))
-          .catch(err => res.status(500).json({ msg: 'Server Error', err }));
-      } else {
-        res.status(401).json({ msg: 'Unauthorized' });
-      }
-    })
+      // Retrieve prices of the updated parts from MongoDB
+      const updatedPartIds = Object.values(req.body.parts);
+      const updatedParts = await Product.find({ _id: { $in: updatedPartIds } });
+
+      // Calculate the total price based on the updated part prices
+      const updatedTotalPrice = updatedParts.reduce((acc, part) => acc + part.price, 0);
+
+      // Update build fields
+      build.parts = req.body.parts;
+      build.totalPrice = updatedTotalPrice;
+
+      // Save the updated build
+      const updatedBuild = await build.save();
+
+      res.json(updatedBuild);
+    } else {
+      res.status(401).json({ msg: 'Unauthorized' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server Error', err });
+  }
 });
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // @route   DELETE api/builds/:id
 // @desc    Delete a saved build

@@ -59,7 +59,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ msg: 'Server Error' });
   }
 });
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // @route   POST api/products
 // @desc    Create new products (supports bulk insert)
 // @access  Public
@@ -96,7 +96,7 @@ router.post('/', async (req, res) => {
     }
   }
 });
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // @route   GET api/products/onsale
 // @desc    Get all products that are on sale
 // @access  Public
@@ -110,7 +110,7 @@ router.get('/onsale', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // @route   PUT api/products/:id
 // @desc    Update a product
@@ -144,7 +144,30 @@ router.put('/:id', async (req, res) => {
     console.log("Received ID:", req.params.id);
   }  
 });
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// @route   GET api/products/:productId
+// @desc    Get product details by ID
+// @access  Public (or adjust as needed)
 
+router.get('/:productId', async (req, res) => {
+  try {
+    const productId = req.params.productId;
+
+    // Fetch the product details by ID
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ msg: 'Product not found' });
+    }
+
+    res.json(product);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server Error', err });
+  }
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // @route   DELETE api/products/:id
 // @desc    Delete a product
 // @access  Public
